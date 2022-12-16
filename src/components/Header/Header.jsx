@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Header = ({ children }) => {
-  return <div>{children}</div>;
+  return <header>{children}</header>;
 };
 
 export default Header;
