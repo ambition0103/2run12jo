@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Comment from '../redux/components/comments/Comment';
 
 function Detail() {
   return (
     <div>
-      디테일페이지
+      <Comment />
     </div>
-  )
+  );
 }
 
-export default Detail
+export default Detail;

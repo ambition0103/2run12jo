@@ -17,5 +17,6 @@ const StyleButton = styled.button`
   font-weight: 700;
   background: ${(props) => props.backgroundColor};
   border: 0;
+  cursor: pointer;
   border-radius: ${(props) => props.radius}px;
 `;
