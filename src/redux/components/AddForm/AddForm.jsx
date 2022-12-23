@@ -6,6 +6,8 @@ const AddForm = ({ setTodos }) => {
   const [contentValue, setContentValue] = useState("");
   const [userIdValue, setUserIdValue] = useState("");
   const [userPw, setUserPw] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [schedule, setSchedule] = useState("");
 
   // 일정제목 입력
   const titleHandler = (e) => {
@@ -25,6 +27,16 @@ const AddForm = ({ setTodos }) => {
   // 암호 입력
   const todoUserPwHandler = (e) => {
     setUserPw(e.target.value);
+  };
+
+  // 시작 날짜
+  const startDateHandler = (e) => {
+    setStartDate(e.target.value);
+  };
+
+  // List 선택
+  const scheduleHandler = (e) => {
+    setSchedule(e.target.value);
   };
 
   // 일정 추가하기 이벤트
@@ -58,6 +70,11 @@ const AddForm = ({ setTodos }) => {
       setUserPw("");
       return;
     }
+    if (!schedule) {
+      alert("진행정도를 체크해주세요!");
+      setSchedule("");
+      return;
+    }
 
     // 일정에 들어갈 key, value
     const newTodo = {
@@ -65,6 +82,8 @@ const AddForm = ({ setTodos }) => {
       content: content,
       userId: userId,
       userPw: userPw,
+      startDate: startDate,
+      schedule: schedule,
       id: uuid(),
     };
 
@@ -76,6 +95,8 @@ const AddForm = ({ setTodos }) => {
     setContentValue("");
     setUserIdValue("");
     setUserPw("");
+    setStartDate("");
+    setSchedule("");
   };
 
   return (
@@ -123,10 +144,52 @@ const AddForm = ({ setTodos }) => {
           autoFocus={false}
           placeholder="암호를 적어주세요."
         />
+        <label htmlFor="start-date">Start date: </label>
+        <input
+          onChange={startDateHandler}
+          type="date"
+          id="start-date"
+          name="start-date"
+          min="2022-01-01"
+          max="2023-03-15"
+        />
+        <div>
+          <input
+            onChange={scheduleHandler}
+            type="radio"
+            id="schedule-list0"
+            name="schedule-list"
+            value={0}
+          />
+          <label htmlFor="schedule-list0">idea </label>
+          <input
+            onChange={scheduleHandler}
+            type="radio"
+            id="schedule-list1"
+            name="schedule-list"
+            value={1}
+          />
+          <label htmlFor="schedule-list1">pick </label>
+          <input
+            onChange={scheduleHandler}
+            type="radio"
+            id="schedule-list2"
+            name="schedule-list"
+            value={2}
+          />
+          <label htmlFor="schedule-list2">working </label>
+          <input
+            onChange={scheduleHandler}
+            type="radio"
+            id="schedule-list3"
+            name="schedule-list"
+            value={3}
+          />
+          <label htmlFor="schedule-list3">done </label>
+        </div>
         <button>일정추가</button>
       </form>
     </div>
   );
 };
-
 export default AddForm;
