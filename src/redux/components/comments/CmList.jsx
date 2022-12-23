@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../button/Button';
+import { deleteComment, modifyComment } from '../../modules/commentSlice';
 
 function CmList({ item, setCommentList }) {
   const [commentModify, setCommnetModify] = useState(false);
   const [modifyValue, setModifyValue] = useState('');
+  const dispatch = useDispatch();
 
   //코멘트 수정
   const commentModifyButton = () => {
@@ -21,15 +24,18 @@ function CmList({ item, setCommentList }) {
       }
     } else {
       //commentModify true 일때 새로운 코멘트 입력 값 변경
-      setCommentList((prev) =>
-        prev.map((t) => {
-          if (t.id === item.id) {
-            return { ...t, comment: modifyValue };
-          } else {
-            return t;
-          }
-        })
-      );
+      // setCommentList((prev) =>
+      //   prev.map((t) => {
+      //     if (t.id === item.id) {
+      //       return { ...t, comment: modifyValue };
+      //     } else {
+      //       return t;
+      //     }
+      //   })
+      // );
+
+      dispatch(modifyComment({ id: item.id, comment: modifyValue }));
+
       setCommnetModify(!commentModify);
     }
   };
@@ -43,7 +49,8 @@ function CmList({ item, setCommentList }) {
     //비밀번호가 같을 때
     if (deleteCommnet === item.userPw) {
       window.confirm('정말 삭제하겠습니까?');
-      setCommentList((prev) => prev.filter((c) => c.id !== item.id));
+
+      dispatch(deleteComment(item.id));
     } else {
       window.confirm('비밀번호가 틀립니다. 다시 입력 해 주세요.');
     }

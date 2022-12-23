@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../button/Button';
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from 'react-redux';
+import { addComment } from '../../modules/commentSlice';
 
-function CmWrite({ setCommentList, commentList }) {
+function CmWrite() {
+  const dispatch = useDispatch();
   const [comment, setComment] = useState('');
   const [userId, setUserId] = useState('');
   const [userPw, setUserPw] = useState('');
@@ -34,14 +37,6 @@ function CmWrite({ setCommentList, commentList }) {
     //현재시간 객체로 받음.
     let today = new Date();
 
-    const newComment = {
-      id: uuidv4(),
-      comment,
-      userId,
-      userPw,
-      date: today.toLocaleDateString(),
-    };
-
     //form 유효검사
     if (!comment || !userId || !userPw) {
       setInpuTxt({
@@ -53,7 +48,15 @@ function CmWrite({ setCommentList, commentList }) {
       return;
     }
 
-    setCommentList([...commentList, newComment]);
+    const newComment = {
+      id: uuidv4(),
+      comment,
+      userId,
+      userPw,
+      date: today.toLocaleDateString(),
+    };
+    dispatch(addComment(newComment));
+
     setComment('');
     setUserId('');
     setUserPw('');
