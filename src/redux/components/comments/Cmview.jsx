@@ -5,7 +5,9 @@ function Cmview({ commentList, setCommentList }) {
   return (
     <div>
       {commentList.map((item) => {
-        return <CmList item={item} setCommentList={setCommentList} />;
+        return (
+          <CmList item={item} setCommentList={setCommentList} key={item.id} />
+        );
       })}
     </div>
   );
