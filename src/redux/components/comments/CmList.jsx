@@ -60,9 +60,10 @@ function CmList({ item, setCommentList }) {
           <span className="comment-user">{item.userId}</span>
           {commentModify && (
             <input
+              maxLength="40"
               type="text"
               vale={modifyValue}
-              placeholder="변경할 댓글을 입력해 주세요."
+              placeholder="댓글을 입력해 주세요."
               onChange={(e) => {
                 setModifyValue(e.target.value);
               }}
@@ -103,6 +104,12 @@ const StyleComments = styled.div`
     margin-left: 16px;
   }
 
+  > p {
+    @media (max-width: 1160px) {
+      width: calc(100% / 2);
+      line-height: 1.3;
+    }
+  }
   .comment-modify {
     > span {
       margin-right: 16px;
@@ -112,12 +119,16 @@ const StyleComments = styled.div`
     }
 
     > input {
+      min-width: 160px;
       height: 34px;
       padding: 0 8px;
       margin-right: 8px;
       border: none;
-      border-bottom: 1px solid #e6e6e6;
+      border-bottom: 1px solid #2f80ed;
 
+      ::placeholder {
+        color: #2f80ed;
+      }
       :focus {
         outline: none;
       }
