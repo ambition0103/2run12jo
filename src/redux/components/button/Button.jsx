@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Button({ children, backgroundColor, radius }) {
+function Button({ children, backgroundColor, radius, ClickHandler }) {
   return (
-    <StyleButton backgroundColor={backgroundColor} radius={radius}>
+    <StyleButton
+      backgroundColor={backgroundColor}
+      radius={radius}
+      onClick={ClickHandler}
+    >
       {children}
     </StyleButton>
   );
