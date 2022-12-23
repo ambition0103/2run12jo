@@ -122,8 +122,8 @@ const StyleForm = styled.form`
       width: 100%;
       height: 34px;
       border: none;
-      border-radius: 50px;
       padding: 0 8px;
+      border-bottom: 1px solid #e6e6e6;
 
       :focus {
         outline: none;
@@ -146,7 +146,7 @@ const StyleFlex = styled.div`
         padding: 0 8px;
         margin-right: 8px;
         border: none;
-        border-radius: 50px;
+        border-bottom: 1px solid #e6e6e6;
 
         :focus {
           outline: none;
@@ -159,4 +159,5 @@ const StyleFlex = styled.div`
 const StyleInputErro = styled.p`
   color: red;
   font-size: 13px;
+  margin-top: 4px;
 `;
