@@ -1,0 +1,23 @@
+{
+  "todos": [
+    {
+      "id": 1,
+      "schedule": [],
+      "userName": "",
+      "todoPassword": "",
+      "title": "json-server",
+      "content": "json-server를 배워봅시다.",
+      "date": "date"
+    }
+  ],
+
+  "comments": [
+    {
+      "id": 1,
+      "userName": "",
+      "commentPassword": "",
+      "content": "json-server를 배워봅시다.",
+      "date": "date"
+    }
+  ]
+}
