@@ -1,43 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../button/Button';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { addComment } from '../../modules/commentSlice';
+import axios from 'axios';
 
-function CmWrite() {
+function CmWrite({ commentLists, setCommentLists }) {
   const dispatch = useDispatch();
-  const [comment, setComment] = useState('');
-  const [userId, setUserId] = useState('');
-  const [userPw, setUserPw] = useState('');
+
+  let today = new Date();
+  const [commentList, setCommentList] = useState({
+    // id: ,
+    comment: '',
+    userId: '',
+    userPw: '',
+    date: today.toLocaleDateString(),
+  });
+  const { comment, userId, userPw } = commentList;
+
   const [inputTxt, setInpuTxt] = useState({
     commentTxt: '',
     userIdTxt: '',
     userPwTxt: '',
   });
-
   const { commentTxt, userIdTxt, userPwTxt } = inputTxt;
 
-  //댓글 입력창
-  const commentOnChange = (e) => {
-    setComment(e.target.value);
-  };
-  //유저이름 입력창
-  const userIdOnChange = (e) => {
-    setUserId(e.target.value);
-  };
-  //비밀번호 입력창
-  const userPwOnChange = (e) => {
-    setUserPw(e.target.value);
-  };
+  console.log(commentLists);
 
-  //댓글 추가버튼
-  const commentOnSubmit = (e) => {
-    e.preventDefault();
-    //현재시간 객체로 받음.
-    let today = new Date();
+  //추가
+  const commentOnsubmitHandler = (commentList) => {
+    axios.post('http://localhost:3001/commentLists', commentList);
 
-    //form 유효검사
     if (!comment || !userId || !userPw) {
       setInpuTxt({
         ...inputTxt,
@@ -47,30 +41,47 @@ function CmWrite() {
       });
       return;
     }
-
-    const newComment = {
-      id: uuidv4(),
-      comment,
-      userId,
-      userPw,
-      date: today.toLocaleDateString(),
-    };
-    dispatch(addComment(newComment));
-
-    setComment('');
-    setUserId('');
-    setUserPw('');
+    setCommentLists([...commentLists, commentList]);
+    setCommentList({ ...commentList, comment: '', userId: '', userPw: '' });
   };
+
+  //수정
 
   return (
     <>
-      <StyleForm onSubmit={commentOnSubmit}>
+      {/* <div>
+        {commentLists.map((c) => (
+          <div style={{ display: 'flex', gap: '20px' }} key={c.id}>
+            <p>{c.id}</p>
+            <p>{c.comment}</p>
+            <p>{c.userId}</p>
+            <p>{c.userPw}</p>
+            <p>{c.date}</p>
+            <button onClick={() => commentDeleteButton(c.id)}>삭제</button>
+            <button onClick={() => commentEditButton(c.id, comment)}>
+              수정하기
+            </button>
+          </div>
+        ))}
+      </div> */}
+      <StyleForm
+        onSubmit={(e) => {
+          e.preventDefault();
+          commentOnsubmitHandler(commentList);
+        }}
+      >
         <div className="comment-wrap">
           <input
             maxLength="40"
             type="text"
             value={comment}
-            onChange={commentOnChange}
+            onChange={(e) => {
+              const { value } = e.target;
+              setCommentList({
+                ...commentList,
+                comment: value,
+              });
+            }}
             placeholder="댓글을 입력해주세요."
           />
           {/* 코멘트 입력했을때  */}
@@ -84,7 +95,13 @@ function CmWrite() {
                 maxLength="5"
                 type="text"
                 value={userId}
-                onChange={userIdOnChange}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setCommentList({
+                    ...commentList,
+                    userId: value,
+                  });
+                }}
                 placeholder="이름을 입력해주세요"
               />
               <StyleInputErro>{userId ? '' : userIdTxt}</StyleInputErro>
@@ -95,7 +112,13 @@ function CmWrite() {
                 maxLength="10"
                 type="text"
                 value={userPw}
-                onChange={userPwOnChange}
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setCommentList({
+                    ...commentList,
+                    userPw: value,
+                  });
+                }}
                 placeholder="비밀번호를 입력 해 주세요"
               />
               <StyleInputErro>{userPw ? '' : userPwTxt}</StyleInputErro>

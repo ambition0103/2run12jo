@@ -3,14 +3,15 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../button/Button';
 import { deleteComment, modifyComment } from '../../modules/commentSlice';
+import axios from 'axios';
 
-function CmList({ item, setCommentList }) {
+function CmList({ item, setCommentLists, setCommentList, commentLists }) {
   const [commentModify, setCommnetModify] = useState(false);
   const [modifyValue, setModifyValue] = useState('');
   const dispatch = useDispatch();
 
   //코멘트 수정
-  const commentModifyButton = () => {
+  const commentModifyButton = async (commentListId, edit) => {
     //commentModify false 일때
     if (!commentModify) {
       const ModifyCommnet = window.prompt(
@@ -23,25 +24,39 @@ function CmList({ item, setCommentList }) {
         window.confirm('비밀번호가 틀립니다. 다시 입력 해 주세요.');
       }
     } else {
+      await axios.patch(`http://localhost:3001/commentLists/${commentListId}`, {
+        comment: edit,
+      });
+
+      //수정후 다시 화면 렌더링
+      const response = await axios.get('http://localhost:3001/commentLists');
+
       //commentModify true 일때 새로운 코멘트 입력 값 변경
-      // setCommentList((prev) =>
-      //   prev.map((t) => {
-      //     if (t.id === item.id) {
-      //       return { ...t, comment: modifyValue };
-      //     } else {
-      //       return t;
-      //     }
-      //   })
-      // );
-
-      dispatch(modifyComment({ id: item.id, comment: modifyValue }));
-
+      setCommentLists(response.data);
       setCommnetModify(!commentModify);
     }
   };
 
-  //코멘트 삭제
-  const commentDeleteButton = () => {
+  // //코멘트 삭제
+  // const commentDeleteButton = () => {
+  //   const deleteCommnet = window.prompt(
+  //     '삭제를 위해서 비밀번호를 입력 해 주세요.',
+  //     '비밀번호를 입력해주세요.'
+  //   );
+  //   //비밀번호가 같을 때
+  //   if (deleteCommnet === item.userPw) {
+  //     window.confirm('정말 삭제하겠습니까?');
+
+  //     dispatch(deleteComment(item.id));
+  //   } else {
+  //     window.confirm('비밀번호가 틀립니다. 다시 입력 해 주세요.');
+  //   }
+  // };
+
+  //삭제
+  const commentDeleteButton = (commentListId) => {
+    axios.delete(`http://localhost:3001/commentLists/${commentListId}`);
+
     const deleteCommnet = window.prompt(
       '삭제를 위해서 비밀번호를 입력 해 주세요.',
       '비밀번호를 입력해주세요.'
@@ -50,7 +65,9 @@ function CmList({ item, setCommentList }) {
     if (deleteCommnet === item.userPw) {
       window.confirm('정말 삭제하겠습니까?');
 
-      dispatch(deleteComment(item.id));
+      setCommentLists((prev) =>
+        prev.filter((comment) => comment.id !== commentListId)
+      );
     } else {
       window.confirm('비밀번호가 틀립니다. 다시 입력 해 주세요.');
     }
@@ -58,7 +75,7 @@ function CmList({ item, setCommentList }) {
 
   return (
     <>
-      <StyleComments key={item.id}>
+      <StyleComments>
         <p>
           {item.comment}
           <span className="comment-date">{item.date}</span>
@@ -79,15 +96,16 @@ function CmList({ item, setCommentList }) {
           <Button
             backgroundColor="#2F80ED"
             radius="100"
-            ClickHandler={commentModifyButton}
+            ClickHandler={() => commentModifyButton(item.id, modifyValue)}
           >
             {commentModify ? '완료하기' : '수정하기'}
           </Button>
           <StyleMarginRight />
+
           <Button
             backgroundColor="#8d8d8d"
             radius="100"
-            ClickHandler={commentDeleteButton}
+            ClickHandler={() => commentDeleteButton(item.id)}
           >
             삭제하기
           </Button>

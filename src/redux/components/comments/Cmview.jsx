@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import CmList from './CmList';
 
-function Cmview() {
+function Cmview({ commentLists, setCommentLists }) {
   const commentList = useSelector((state) => state.commentList);
 
   return (
     <div>
-      {commentList.map((item) => {
-        return <CmList item={item} key={item.id} />;
+      {commentLists.map((item) => {
+        return (
+          <CmList item={item} key={item.id} setCommentLists={setCommentLists} />
+        );
       })}
     </div>
   );

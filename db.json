@@ -1,0 +1,18 @@
+{
+  "commentLists": [
+    {
+      "comment": "3",
+      "userId": "2",
+      "userPw": "2",
+      "date": "2022. 12. 24.",
+      "id": 1
+    },
+    {
+      "comment": "수정",
+      "userId": "이름 ",
+      "userPw": "비번",
+      "date": "2022. 12. 24.",
+      "id": 2
+    }
+  ]
+}
