@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Button from '../button/Button';
-import { deleteComment, modifyComment } from '../../modules/commentSlice';
-import axios from 'axios';
+import { __deleteComment, __modifyComment } from '../../modules/commentSlice';
 
-function CmList({ item, setCommentLists, setCommentList, commentLists }) {
+function CommentList({ item }) {
   const [commentModify, setCommnetModify] = useState(false);
   const [modifyValue, setModifyValue] = useState('');
   const dispatch = useDispatch();
 
   //코멘트 수정
-  const commentModifyButton = async (commentListId, edit) => {
+  const commentModifyButton = () => {
+
     //commentModify false 일때
     if (!commentModify) {
       const ModifyCommnet = window.prompt(
@@ -24,50 +24,23 @@ function CmList({ item, setCommentLists, setCommentList, commentLists }) {
         window.confirm('비밀번호가 틀립니다. 다시 입력 해 주세요.');
       }
     } else {
-      await axios.patch(`http://localhost:3001/commentLists/${commentListId}`, {
-        comment: edit,
-      });
-
-      //수정후 다시 화면 렌더링
-      const response = await axios.get('http://localhost:3001/commentLists');
-
-      //commentModify true 일때 새로운 코멘트 입력 값 변경
-      setCommentLists(response.data);
+      //변경할 내용을 객체로 받아와야함.
+      dispatch(__modifyComment({ id: item.id, comment: modifyValue }));
       setCommnetModify(!commentModify);
     }
   };
 
-  // //코멘트 삭제
-  // const commentDeleteButton = () => {
-  //   const deleteCommnet = window.prompt(
-  //     '삭제를 위해서 비밀번호를 입력 해 주세요.',
-  //     '비밀번호를 입력해주세요.'
-  //   );
-  //   //비밀번호가 같을 때
-  //   if (deleteCommnet === item.userPw) {
-  //     window.confirm('정말 삭제하겠습니까?');
-
-  //     dispatch(deleteComment(item.id));
-  //   } else {
-  //     window.confirm('비밀번호가 틀립니다. 다시 입력 해 주세요.');
-  //   }
-  // };
-
-  //삭제
-  const commentDeleteButton = (commentListId) => {
-    axios.delete(`http://localhost:3001/commentLists/${commentListId}`);
-
+  //코멘트 삭제
+  const commentDeleteButton = () => {
     const deleteCommnet = window.prompt(
       '삭제를 위해서 비밀번호를 입력 해 주세요.',
       '비밀번호를 입력해주세요.'
     );
+
     //비밀번호가 같을 때
     if (deleteCommnet === item.userPw) {
       window.confirm('정말 삭제하겠습니까?');
-
-      setCommentLists((prev) =>
-        prev.filter((comment) => comment.id !== commentListId)
-      );
+      dispatch(__deleteComment(item.id));
     } else {
       window.confirm('비밀번호가 틀립니다. 다시 입력 해 주세요.');
     }
@@ -77,11 +50,11 @@ function CmList({ item, setCommentLists, setCommentList, commentLists }) {
     <>
       <StyleComments>
         <p>
-          {item.comment}
-          <span className="comment-date">{item.date}</span>
+          {item?.comment}
+          <span className="comment-date">{item?.date}</span>
         </p>
         <div className="comment-modify">
-          <span className="comment-user">{item.userId}</span>
+          <span className="comment-user">{item?.userId}</span>
           {commentModify && (
             <input
               maxLength="40"
@@ -96,7 +69,7 @@ function CmList({ item, setCommentLists, setCommentList, commentLists }) {
           <Button
             backgroundColor="#2F80ED"
             radius="100"
-            ClickHandler={() => commentModifyButton(item.id, modifyValue)}
+            ClickHandler={commentModifyButton}
           >
             {commentModify ? '완료하기' : '수정하기'}
           </Button>
@@ -105,7 +78,7 @@ function CmList({ item, setCommentLists, setCommentList, commentLists }) {
           <Button
             backgroundColor="#8d8d8d"
             radius="100"
-            ClickHandler={() => commentDeleteButton(item.id)}
+            ClickHandler={commentDeleteButton}
           >
             삭제하기
           </Button>
@@ -115,7 +88,7 @@ function CmList({ item, setCommentLists, setCommentList, commentLists }) {
   );
 }
 
-export default CmList;
+export default CommentList;
 
 const StyleComments = styled.div`
   display: flex;

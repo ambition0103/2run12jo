@@ -1,25 +1,11 @@
 {
   "commentLists": [
     {
-      "comment": "3",
-      "userId": "2",
-      "userPw": "2",
-      "date": "2022. 12. 24.",
-      "id": 1
-    },
-    {
-      "comment": "수정",
-      "userId": "이름 ",
-      "userPw": "비번",
-      "date": "2022. 12. 24.",
-      "id": 2
-    },
-    {
-      "comment": "강아지",
-      "userId": "귀여",
-      "userPw": "1",
-      "date": "2022. 12. 25.",
-      "id": 3
+      "id": "484a2d85-2bc3-4fdd-856c-58089ed82628",
+      "comment": "1",
+      "userId": "3",
+      "userPw": "4",
+      "date": "2022. 12. 25."
     }
   ]
 }

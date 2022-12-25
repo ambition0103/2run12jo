@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../button/Button';
-import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
-import { addComment } from '../../modules/commentSlice';
-import axios from 'axios';
+import { __addComment } from '../../modules/commentSlice';
+import { v4 as uuidv4 } from 'uuid';
 
-function CmWrite({ commentLists, setCommentLists }) {
+function CommentWrite() {
   const dispatch = useDispatch();
 
   let today = new Date();
   const [commentList, setCommentList] = useState({
-    // id: ,
+    id: uuidv4(),
     comment: '',
     userId: '',
     userPw: '',
     date: today.toLocaleDateString(),
   });
+
   const { comment, userId, userPw } = commentList;
 
   const [inputTxt, setInpuTxt] = useState({
@@ -26,12 +26,8 @@ function CmWrite({ commentLists, setCommentLists }) {
   });
   const { commentTxt, userIdTxt, userPwTxt } = inputTxt;
 
-  console.log(commentLists);
-
   //추가
-  const commentOnsubmitHandler = (commentList) => {
-    axios.post('http://localhost:3001/commentLists', commentList);
-
+  const commentOnsubmitHandler = () => {
     if (!comment || !userId || !userPw) {
       setInpuTxt({
         ...inputTxt,
@@ -41,18 +37,25 @@ function CmWrite({ commentLists, setCommentLists }) {
       });
       return;
     }
-    setCommentLists([...commentLists, commentList]);
+
+    const newComment = {
+      id: uuidv4(),
+      comment,
+      userId,
+      userPw,
+      date: today.toLocaleDateString(),
+    };
+
+    dispatch(__addComment(newComment));
     setCommentList({ ...commentList, comment: '', userId: '', userPw: '' });
   };
-
-  //수정
 
   return (
     <>
       <StyleForm
         onSubmit={(e) => {
           e.preventDefault();
-          commentOnsubmitHandler(commentList);
+          commentOnsubmitHandler();
         }}
       >
         <div className="comment-wrap">
@@ -118,7 +121,7 @@ function CmWrite({ commentLists, setCommentLists }) {
   );
 }
 
-export default CmWrite;
+export default CommentWrite;
 
 const StyleForm = styled.form`
   display: flex;
