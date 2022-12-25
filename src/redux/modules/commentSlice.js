@@ -1,56 +1,135 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uuidv4 } from 'uuid';
+import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 //initialState
-const initialState = [
-  {
-    id: uuidv4(),
-    comment: '코멘트1',
-    userId: 'user1',
-    userPw: 'dffddfdf',
-    date: '22.12.25',
-  },
-  {
-    id: uuidv4(),
-    comment: '코멘트2코멘트2코멘트2코멘트2코멘트2코멘트2',
-    userId: 'user1',
-    userPw: 'dffddfdf',
-    date: '22.12.25',
-  },
-  {
-    id: uuidv4(),
-    comment: '코멘트3',
-    userId: 'user1',
-    userPw: '1',
-    date: '22.12.25',
-  },
-];
+const initialState = {
+  commentLists: [],
+  isLoading: false,
+  error: null,
+};
+
+//Thunk 함수
+export const __getComment = createAsyncThunk(
+  'getComment',
+  async (payload, thunkAPI) => {
+    try {
+      const data = await axios.get('http://localhost:3001/commentLists');
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __addComment = createAsyncThunk(
+  'addComment',
+  async (payload, thunkAPI) => {
+    try {
+      await axios.post('http://localhost:3001/commentLists', payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __deleteComment = createAsyncThunk(
+  'deleteComment',
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(`http://localhost:3001/commentLists/${payload}`);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __modifyComment = createAsyncThunk(
+  'modifycomment',
+  async (payload, thunkAPI) => {
+    try {
+      await axios
+        .patch(`http://localhost:3001/commentLists/${payload.id}`, {
+          comment: payload.comment,
+        })
+        
+
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const commentSlice = createSlice({
   name: 'commentList',
   initialState,
-  reducers: {
-    addComment: (state, action) => {
-      return [...state, action.payload];
+  extraReducers: {
+    [__getComment.pending]: (state) => {
+      state.isLoading = true;
     },
-    deleteComment: (state, action) => {
-      return state.filter((c) => c.id !== action.payload);
+    [__getComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.commentLists = action.payload;
     },
-    modifyComment: (state, action) => {
-      console.log('action', action.payload);
+    [__getComment.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
 
-      state.forEach((c) => {
-        console.log('state', state);
-        if (c.id === action.payload.id) {
-          c.comment = action.payload.comment;
-          return;
-          //   return { ...c, comment: action.payload.comment };
+    //addComment
+    [__addComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__addComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.commentLists = [...state.commentLists, action.payload];
+    },
+    [__addComment.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    //deleteCommet
+    [__deleteComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deleteComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.commentLists = state.commentLists.filter(
+        (comment) => comment.id !== action.payload
+      );
+    },
+    [__deleteComment.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    //modifycomment
+    [__modifyComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__modifyComment.fulfilled]: (state, action) => {
+      state.isLoading = false;
+
+      state.commentLists = current(state).commentLists.map((comment) => {
+        if (comment.id === action.payload.id) {
+          return { ...comment, comment: action.payload.comment };
+        } else {
+          return comment;
         }
       });
-      return state;
+    },
+    [__modifyComment.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });
 
-export const { addComment, deleteComment, modifyComment } = commentSlice.actions;
+export const { getComment, addComment, commentLists, modifyComment } =
+  commentSlice.actions;
 export default commentSlice.reducer;
