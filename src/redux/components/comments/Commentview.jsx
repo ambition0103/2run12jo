@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import CmList from './CmList';
+import CommentList from './CommentList';
 
 function Cmview({ commentLists, setCommentLists }) {
   const commentList = useSelector((state) => state.commentList);
@@ -9,7 +9,11 @@ function Cmview({ commentLists, setCommentLists }) {
     <div>
       {commentLists.map((item) => {
         return (
-          <CmList item={item} key={item.id} setCommentLists={setCommentLists} />
+          <CommentList
+            item={item}
+            key={item.id}
+            setCommentLists={setCommentLists}
+          />
         );
       })}
     </div>

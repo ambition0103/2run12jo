@@ -49,21 +49,6 @@ function CmWrite({ commentLists, setCommentLists }) {
 
   return (
     <>
-      {/* <div>
-        {commentLists.map((c) => (
-          <div style={{ display: 'flex', gap: '20px' }} key={c.id}>
-            <p>{c.id}</p>
-            <p>{c.comment}</p>
-            <p>{c.userId}</p>
-            <p>{c.userPw}</p>
-            <p>{c.date}</p>
-            <button onClick={() => commentDeleteButton(c.id)}>삭제</button>
-            <button onClick={() => commentEditButton(c.id, comment)}>
-              수정하기
-            </button>
-          </div>
-        ))}
-      </div> */}
       <StyleForm
         onSubmit={(e) => {
           e.preventDefault();

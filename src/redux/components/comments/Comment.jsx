@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import Cmview from './Cmview';
-import CmWrite from './CmWrite';
+import Commentview from './Commentview';
+import CommentWrite from './CommentWrite';
 import axios from 'axios';
 
 function Comment() {
@@ -24,13 +24,13 @@ function Comment() {
 
   return (
     <StyleCommentWrap>
-      <CmWrite
+      <CommentWrite
         commentLists={commentLists}
         setCommentLists={setCommentLists}
         commentList={commentList}
         setCommentList={setCommentList}
       />
-      <Cmview
+      <Commentview
         commentLists={commentLists}
         setCommentLists={setCommentLists}
         commentList={commentList}
