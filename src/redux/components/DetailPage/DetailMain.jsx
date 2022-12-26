@@ -4,18 +4,14 @@ import { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { __getTodos } from '../../modules/todosSlice';
-
+import Comment from '../comments/Comment';
 // import {v4 as uuidv4} from 'uuid';
 
 function DetailMain() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(__getTodos());
-  }, [dispatch]);
 
   // 생성일시
   const [startDate, setStartDate] = useState(new Date());
@@ -32,11 +28,13 @@ function DetailMain() {
   // useNavigate로 전달한 props(todo의 id)
   const location = useLocation();
   const todoId = location.pathname.split('/')[1];
-  console.log('todoId', todoId);
 
   // 상세페이지 제목을 받아오려면 todos를 들고와서 map을 돌리자.
   const { todos } = useSelector((state) => state.allTodos);
-  console.log('todos', todos);
+  const params = useParams();
+
+  console.log('params', params);
+
   return (
     <div>
       {/* 제목 */}
@@ -101,6 +99,8 @@ function DetailMain() {
       </form>
 
       <div>{text}</div>
+      
+      <Comment />
     </div>
   );
 }

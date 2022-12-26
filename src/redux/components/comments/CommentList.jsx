@@ -11,7 +11,6 @@ function CommentList({ item }) {
 
   //코멘트 수정
   const commentModifyButton = () => {
-
     //commentModify false 일때
     if (!commentModify) {
       const ModifyCommnet = window.prompt(

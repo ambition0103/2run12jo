@@ -3,14 +3,15 @@ import styled from 'styled-components';
 import Button from '../button/Button';
 import { useDispatch } from 'react-redux';
 import { __addComment } from '../../modules/commentSlice';
-import { v4 as uuidv4 } from 'uuid';
+import { nanoid } from '@reduxjs/toolkit';
 
-function CommentWrite() {
+function CommentWrite({ commentId }) {
   const dispatch = useDispatch();
 
   let today = new Date();
   const [commentList, setCommentList] = useState({
-    id: uuidv4(),
+    id: nanoid(),
+    postId: commentId,
     comment: '',
     userId: '',
     userPw: '',
@@ -39,7 +40,8 @@ function CommentWrite() {
     }
 
     const newComment = {
-      id: uuidv4(),
+      id: nanoid(),
+      postId: commentId,
       comment,
       userId,
       userPw,

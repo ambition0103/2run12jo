@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Button from '../button/Button';
 import { __deleteTodos } from '../../modules/todosSlice';
 import { useDispatch } from 'react-redux';
-
 const Todo = ({ item }) => {
   const dispatch = useDispatch();
 

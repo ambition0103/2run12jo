@@ -26,6 +26,7 @@ export const __addComment = createAsyncThunk(
   'addComment',
   async (payload, thunkAPI) => {
     try {
+      console.log('payload', payload);
       await axios.post('http://localhost:3001/commentLists', payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
@@ -111,7 +112,6 @@ const commentSlice = createSlice({
     },
     [__modifyComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-
       state.commentLists = current(state).commentLists.map((comment) => {
         if (comment.id === action.payload.id) {
           return { ...comment, comment: action.payload.comment };
