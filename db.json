@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "todos": [
     {
       "id": "e51c5f5b-7994-480d-b45a-9edb009c4c91",
@@ -9,16 +8,38 @@
       "title": "제목입니다",
       "content": "내용입니다",
       "date": ""
+    },
+    {
+      "id": "68cd5eb0-1257-4093-a782-1de6bd0c7e6e",
+      "title": "1",
+      "content": "1",
+      "userId": "1",
+      "userPw": "1",
+      "startDate": "",
+      "doneDate": "2022-12-26",
+      "schedule": "1"
+    },
+    {
+      "id": "407074be-a747-47e5-a53d-8569144fdd02",
+      "title": "1",
+      "content": "1",
+      "userId": "1",
+      "userPw": "1",
+      "startDate": "2022. 12. 26.",
+      "doneDate": "2022-12-12",
+      "schedule": "완료"
+    },
+    {
+      "id": "c9f7e18a-3eb5-49b4-8976-d692fd3328bc",
+      "title": "2",
+      "content": "2",
+      "userId": "2",
+      "userPw": "2",
+      "startDate": "2022. 12. 26.",
+      "doneDate": "2022-12-27",
+      "schedule": "완료"
     }
   ],
-  "comments": [
-    {
-      "id": 1,
-      "userName": "",
-      "commentPassword": "",
-      "content": "json-server를 배워봅시다.",
-      "date": "date"
-=======
   "commentLists": [
     {
       "id": "484a2d85-2bc3-4fdd-856c-58089ed82628",
@@ -26,7 +47,20 @@
       "userId": "3",
       "userPw": "4",
       "date": "2022. 12. 25."
->>>>>>> feature/comment
+    },
+    {
+      "id": "cd298011-57bb-4d50-80a0-3cf1e7c141e1",
+      "comment": "ㄹ",
+      "userId": "ㄹ",
+      "userPw": "ㄹ",
+      "date": "2022. 12. 26."
+    },
+    {
+      "id": "8affeaea-fc4a-40d5-8c20-e0d311d027f2",
+      "comment": "2222",
+      "userId": "1",
+      "userPw": "1",
+      "date": "2022. 12. 26."
     }
   ]
 }

@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { ko } from "date-fns/esm/locale";
-import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { __getTodos } from "../../modules/todosSlice";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { ko } from 'date-fns/esm/locale';
+import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { __getTodos } from '../../modules/todosSlice';
 
 // import {v4 as uuidv4} from 'uuid';
 
@@ -24,44 +24,44 @@ function DetailMain() {
   const [completionDate, setCompletionDate] = useState(new Date());
 
   // 내용
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
   const textInput = (event) => {
     setText(event.target.value);
   };
 
   // useNavigate로 전달한 props(todo의 id)
   const location = useLocation();
-  const todoId = location.pathname.split("/")[1];
-  console.log("todoId", todoId);
+  const todoId = location.pathname.split('/')[1];
+  console.log('todoId', todoId);
 
   // 상세페이지 제목을 받아오려면 todos를 들고와서 map을 돌리자.
   const { todos } = useSelector((state) => state.allTodos);
-  console.log("todos", todos);
+  console.log('todos', todos);
   return (
     <div>
       {/* 제목 */}
       <TitleBox>
-        {todos.map((item) => {
+        {/* {todos.map((item) => {
           if (item.id === todoId) {
             return item.title;
           }
-        })}
+        })} */}
       </TitleBox>
 
       <InformationBox>
         {/* 담당자 */}
         <Information>
-          담당자{" "}
-          {todos.map((item) => {
+          담당자{' '}
+          {/* {todos.map((item) => {
             if (item.id === todoId) {
               return item.userName;
             }
-          })}
+          })} */}
         </Information>
 
         {/* 진행상태 */}
         <Information>
-          진행 상태{" "}
+          진행 상태{' '}
           <StyledInput>
             <input />
           </StyledInput>
@@ -69,7 +69,7 @@ function DetailMain() {
 
         {/* 생성일시 */}
         <Information>
-          생성 일시{" "}
+          생성 일시{' '}
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
@@ -82,7 +82,7 @@ function DetailMain() {
 
         {/* 마감일시 */}
         <Information>
-          마감 일시{" "}
+          마감 일시{' '}
           <DatePicker
             selected={completionDate}
             onChange={(date) => setCompletionDate(date)}
