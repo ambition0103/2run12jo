@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { v4 as uuid } from "uuid";
+import axios from "axios";
 
 const AddForm = ({ setTodos }) => {
   const [titleValue, setTitleValue] = useState("");
@@ -8,6 +9,11 @@ const AddForm = ({ setTodos }) => {
   const [userPw, setUserPw] = useState("");
   const [startDate, setStartDate] = useState("");
   const [schedule, setSchedule] = useState("");
+
+  const fetchTodos = async () => {
+    const { data } = await axios.get("http://localhost:3001/todos");
+    setTodos(data);
+  };
 
   // 일정제목 입력
   const titleHandler = (e) => {
@@ -87,10 +93,16 @@ const AddForm = ({ setTodos }) => {
       id: uuid(),
     };
 
+    const A = async () => {
+      await axios.post("http://localhost:3001/todos", newTodo);
+      await fetchTodos();
+    };
+    A();
+
     // 일정 추가 후 인풋창 초기화
-    setTodos((prev) => {
-      return [...prev, newTodo];
-    });
+    // setTodos((prev) => {
+    //   return [...prev, newTodo];
+    // });
     setTitleValue("");
     setContentValue("");
     setUserIdValue("");
