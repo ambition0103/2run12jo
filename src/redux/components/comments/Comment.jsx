@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import Commentview from './CommentView';
+import CommentView from './CommentView';
 import CommentWrite from './CommentWrite';
 
 function Comment() {
   return (
     <StyleCommentWrap>
       <CommentWrite />
-      <Commentview />
+      <CommentView />
     </StyleCommentWrap>
   );
 }
