@@ -11,10 +11,10 @@ const AddForm = ({ setTodos }) => {
   const [schedule, setSchedule] = useState("");
 
   //api
-  const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
-    setTodos(data);
-  };
+  // const fetchTodos = async () => {
+  //   const { data } = await axios.get("http://localhost:3001/todos");
+  //   setTodos(data);
+  // };
 
   // 일정제목 입력
   const titleHandler = (e) => {
@@ -94,11 +94,11 @@ const AddForm = ({ setTodos }) => {
       id: uuid(),
     };
 
-    const A = async () => {
-      await axios.post("http://localhost:3001/todos", newTodo);
-      await fetchTodos();
-    };
-    A();
+    // const A = async () => {
+    //   await axios.post("http://localhost:3001/todos", newTodo);
+    //   await fetchTodos();
+    // };
+    // A();
 
     // 일정 추가 후 인풋창 초기화
     // setTodos((prev) => {
