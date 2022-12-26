@@ -29,7 +29,6 @@ export const __addComment = createAsyncThunk(
       await axios.post('http://localhost:3001/commentLists', payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
-      console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -51,11 +50,9 @@ export const __modifyComment = createAsyncThunk(
   'modifycomment',
   async (payload, thunkAPI) => {
     try {
-      await axios
-        .patch(`http://localhost:3001/commentLists/${payload.id}`, {
-          comment: payload.comment,
-        })
-        
+      await axios.patch(`http://localhost:3001/commentLists/${payload.id}`, {
+        comment: payload.comment,
+      });
 
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
