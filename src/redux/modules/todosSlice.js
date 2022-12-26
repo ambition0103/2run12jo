@@ -12,7 +12,7 @@ const initialState = {
   error: null,
   isAdded: false, // AddScheduleInput 컴포넌트에서 todo 추가 시 리렌더링을 위해 썼음
 };
-
+// 123
 // 서버와 데이터 통신
 // GET
 export const __getTodos = createAsyncThunk(
