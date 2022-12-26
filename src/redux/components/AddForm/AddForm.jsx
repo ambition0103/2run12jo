@@ -10,6 +10,7 @@ const AddForm = ({ setTodos }) => {
   const [startDate, setStartDate] = useState("");
   const [schedule, setSchedule] = useState("");
 
+  //api
   const fetchTodos = async () => {
     const { data } = await axios.get("http://localhost:3001/todos");
     setTodos(data);
