@@ -1,8 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import allTodos from "../modules/todosSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import commentList from '../modules/commentSlice';
 
 const store = configureStore({
-  reducer: { allTodos },
+  reducer: { commentList: commentList, allTodos: allTodos },
 });
 
 export default store;

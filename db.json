@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "todos": [
     {
       "id": "e51c5f5b-7994-480d-b45a-9edb009c4c91",
@@ -17,6 +18,15 @@
       "commentPassword": "",
       "content": "json-server를 배워봅시다.",
       "date": "date"
+=======
+  "commentLists": [
+    {
+      "id": "484a2d85-2bc3-4fdd-856c-58089ed82628",
+      "comment": "1",
+      "userId": "3",
+      "userPw": "4",
+      "date": "2022. 12. 25."
+>>>>>>> feature/comment
     }
   ]
 }
