@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import Button from '../button/Button';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from "react";
+import styled from "styled-components";
+import Button from "../button/Button";
+import { v4 as uuidv4 } from "uuid";
 
 function CmWrite({ setCommentList, commentList }) {
-  const [comment, setComment] = useState('');
-  const [userId, setUserId] = useState('');
-  const [userPw, setUserPw] = useState('');
+  const [comment, setComment] = useState("");
+  const [userId, setUserId] = useState("");
+  const [userPw, setUserPw] = useState("");
   const [inputTxt, setInpuTxt] = useState({
-    commentTxt: '',
-    userIdTxt: '',
-    userPwTxt: '',
+    commentTxt: "",
+    userIdTxt: "",
+    userPwTxt: "",
   });
 
   const { commentTxt, userIdTxt, userPwTxt } = inputTxt;
@@ -46,17 +46,17 @@ function CmWrite({ setCommentList, commentList }) {
     if (!comment || !userId || !userPw) {
       setInpuTxt({
         ...inputTxt,
-        commentTxt: '댓글 을 입력해주세요.',
-        userIdTxt: '이름 을 입력해주세요.',
-        userPwTxt: '비밀번호 를 입력해주세요.',
+        commentTxt: "댓글 을 입력해주세요.",
+        userIdTxt: "이름 을 입력해주세요.",
+        userPwTxt: "비밀번호 를 입력해주세요.",
       });
       return;
     }
 
     setCommentList([...commentList, newComment]);
-    setComment('');
-    setUserId('');
-    setUserPw('');
+    setComment("");
+    setUserId("");
+    setUserPw("");
   };
 
   return (
@@ -71,7 +71,7 @@ function CmWrite({ setCommentList, commentList }) {
             placeholder="댓글을 입력해주세요."
           />
           {/* 코멘트 입력했을때  */}
-          <StyleInputErro>{comment ? '' : commentTxt}</StyleInputErro>
+          <StyleInputErro>{comment ? "" : commentTxt}</StyleInputErro>
         </div>
 
         <StyleFlex>
@@ -84,7 +84,7 @@ function CmWrite({ setCommentList, commentList }) {
                 onChange={userIdOnChange}
                 placeholder="이름을 입력해주세요"
               />
-              <StyleInputErro>{userId ? '' : userIdTxt}</StyleInputErro>
+              <StyleInputErro>{userId ? "" : userIdTxt}</StyleInputErro>
             </div>
 
             <div>
@@ -95,7 +95,7 @@ function CmWrite({ setCommentList, commentList }) {
                 onChange={userPwOnChange}
                 placeholder="비밀번호를 입력 해 주세요"
               />
-              <StyleInputErro>{userPw ? '' : userPwTxt}</StyleInputErro>
+              <StyleInputErro>{userPw ? "" : userPwTxt}</StyleInputErro>
             </div>
           </div>
         </StyleFlex>

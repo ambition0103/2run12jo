@@ -1,5 +1,5 @@
-import React from 'react';
-import CmList from './CmList';
+import React from "react";
+import CmList from "./CmList";
 
 function Cmview({ commentList, setCommentList }) {
   return (

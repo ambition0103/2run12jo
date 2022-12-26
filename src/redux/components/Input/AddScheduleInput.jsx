@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { v4 as uuidv4 } from "uuid";
 // import { addTodo } from "../../modules/todosSlice";
 import { __getTodos, __postTodos } from "../../modules/todosSlice";
-import { addTodo } from "../../modules/todosSlice";
 
 // onChange를 위한 state를 여기서 씀.
 // 만약에 todos가 필요하면 useSelecter를 이용해서 가져온다.
@@ -48,6 +47,10 @@ const AddScheduleInput = () => {
     };
 
     dispatch(__postTodos(newTodo));
+    setAddTitle("");
+    setAddContent("");
+    setAddUserName("");
+    setAddTodoPassword("");
   };
 
   return (

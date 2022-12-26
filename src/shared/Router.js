@@ -1,9 +1,9 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Main from '../pages/Main';
-import Detail from '../pages/Detail';
-import Header from '../redux/components/common/Header';
-import Footer from '../redux/components/common/Footer';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Main from "../pages/Main";
+import Detail from "../pages/Detail";
+import Header from "../redux/components/common/Header";
+import Footer from "../redux/components/common/Footer";
 
 function Router() {
   return (

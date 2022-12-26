@@ -1,12 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 function Button({ children, backgroundColor, radius, ClickHandler }) {
-
-
-
-
-
   return (
     <StyleButton
       backgroundColor={backgroundColor}
@@ -15,10 +10,6 @@ function Button({ children, backgroundColor, radius, ClickHandler }) {
     >
       {children}
     </StyleButton>
-
-
-
-
   );
 }
 

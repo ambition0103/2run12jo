@@ -1,10 +1,10 @@
-import Comment from '../redux/components/comments/Comment';
-import DetailMain from '../redux/components/DetailPage/DetailMain';
+import Comment from "../redux/components/comments/Comment";
+import DetailMain from "../redux/components/DetailPage/DetailMain";
 
 function Detail() {
   return (
     <div>
-      <DetailMain/>
+      <DetailMain />
       <Comment />
     </div>
   );
