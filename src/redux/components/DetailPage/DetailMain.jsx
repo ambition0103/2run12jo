@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { __getTodos, __modifyEdittedTodo } from '../../modules/todosSlice';
-import DetailScheduleEdit from '../DetailPage/DetailScheduleEdit';
-import Comment from '../comments/Comment';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { __getTodos, __modifyEdittedTodo } from "../../modules/todosSlice";
+import DetailScheduleEdit from "../DetailPage/DetailScheduleEdit";
+import Comment from "../comments/Comment";
 
 function DetailMain() {
   const dispatch = useDispatch();
 
   // useNavigate로 전달한 props(todo의 id)
   const location = useLocation();
-  const todoId = location.pathname.split('/')[1];
+  const todoId = location.pathname.split("/")[1];
 
   // 상세페이지 제목을 받아오려면 todos를 일단 가져오자.
   const { todos } = useSelector((state) => state.allTodos);
@@ -26,41 +26,57 @@ function DetailMain() {
   const todosContent = sameIdTodos && sameIdTodos.content;
   const todosUserId = sameIdTodos && sameIdTodos.userId;
 
-  // 마감 일시 수정 스위치
+  // 진행 상태 수정 스위치
   const [buttonSwitch, setButtonSwitch] = useState(false);
   const openScheduleEditButton = () => {
     setButtonSwitch(true);
   };
 
   // 내용
-  const [editContent, setEditContent] = useState('');
+  const [editContent, setEditContent] = useState("");
   const editContentInputChangeHandler = (event) => {
     setEditContent(event.target.value);
   };
 
-  //제목
-  const [editTitle, setEdtitTitle] = useState('');
+  // 제목
+  const [editTitle, setEdtitTitle] = useState("");
   const editTitleChangeHandler = (e) => {
     setEdtitTitle(e.target.value);
   };
 
-  //완료일
-  const [editDoneDate, setEdtitDoneDate] = useState('');
+  // 완료일
+  const [editDoneDate, setEdtitDoneDate] = useState("");
   const editDoneDateChangeHandler = (e) => {
     setEdtitDoneDate(e.target.value);
+  };
+
+  // 작성자
+  const [editUserId, setEditUserId] = useState("");
+  const editUserIdChangeHandler = (e) => {
+    setEditUserId(e.target.value);
   };
 
   const onSubmitEdittedTodo = (e) => {
     e.preventDefault();
 
-    dispatch(
-      __modifyEdittedTodo({
-        id: todoId,
-        title: editTitle,
-        content: editContent,
-        doneDate: editDoneDate,
-      })
+    const passwordForModifying = window.prompt(
+      window.confirm("비밀번호를 입력 해 주세요", "")
     );
+
+    if (passwordForModifying === sameIdTodos.userPw) {
+      dispatch(
+        __modifyEdittedTodo({
+          id: todoId,
+          userId: editUserId,
+          title: editTitle,
+          content: editContent,
+          doneDate: editDoneDate,
+        })
+      );
+      return alert("수정이 완료되었습니다.");
+    } else {
+      alert("비밀번호가 틀렸습니다.");
+    }
   };
 
   useEffect(() => {
@@ -82,7 +98,12 @@ function DetailMain() {
         {/* 담당자 */}
         <StyleContent>
           <ConentTitle>담당자 </ConentTitle>
-          <span>{todosUserId}</span>
+
+          <input
+            placeholder={todosUserId}
+            value={editUserId}
+            onChange={editUserIdChangeHandler}
+          />
         </StyleContent>
 
         {/* 진행상태 */}

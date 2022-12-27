@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Button from '../button/Button';
-import { useDispatch } from 'react-redux';
-import { __addComment } from '../../modules/commentSlice';
-import { nanoid } from '@reduxjs/toolkit';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import Button from "../button/Button";
+import { useDispatch } from "react-redux";
+import { __addComment } from "../../modules/commentSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 function CommentWrite({ commentId }) {
   const dispatch = useDispatch();
@@ -12,18 +12,18 @@ function CommentWrite({ commentId }) {
   const [commentList, setCommentList] = useState({
     id: nanoid(),
     postId: commentId,
-    comment: '',
-    userId: '',
-    userPw: '',
+    comment: "",
+    userId: "",
+    userPw: "",
     date: today.toLocaleDateString(),
   });
 
   const { comment, userId, userPw } = commentList;
 
   const [inputTxt, setInpuTxt] = useState({
-    commentTxt: '',
-    userIdTxt: '',
-    userPwTxt: '',
+    commentTxt: "",
+    userIdTxt: "",
+    userPwTxt: "",
   });
   const { commentTxt, userIdTxt, userPwTxt } = inputTxt;
 
@@ -32,9 +32,9 @@ function CommentWrite({ commentId }) {
     if (!comment || !userId || !userPw) {
       setInpuTxt({
         ...inputTxt,
-        commentTxt: '댓글 을 입력해주세요.',
-        userIdTxt: '이름 을 입력해주세요.',
-        userPwTxt: '비밀번호 를 입력해주세요.',
+        commentTxt: "댓글 을 입력해주세요.",
+        userIdTxt: "이름 을 입력해주세요.",
+        userPwTxt: "비밀번호 를 입력해주세요.",
       });
       return;
     }
@@ -49,7 +49,7 @@ function CommentWrite({ commentId }) {
     };
 
     dispatch(__addComment(newComment));
-    setCommentList({ ...commentList, comment: '', userId: '', userPw: '' });
+    setCommentList({ ...commentList, comment: "", userId: "", userPw: "" });
   };
 
   return (
@@ -75,7 +75,7 @@ function CommentWrite({ commentId }) {
             placeholder="댓글을 입력해주세요."
           />
           {/* 코멘트 입력했을때  */}
-          <StyleInputErro>{comment ? '' : commentTxt}</StyleInputErro>
+          <StyleInputErro>{comment ? "" : commentTxt}</StyleInputErro>
         </div>
 
         <StyleFlex>
@@ -94,7 +94,7 @@ function CommentWrite({ commentId }) {
                 }}
                 placeholder="이름을 입력해주세요"
               />
-              <StyleInputErro>{userId ? '' : userIdTxt}</StyleInputErro>
+              <StyleInputErro>{userId ? "" : userIdTxt}</StyleInputErro>
             </div>
 
             <div>
@@ -111,7 +111,7 @@ function CommentWrite({ commentId }) {
                 }}
                 placeholder="비밀번호를 입력 해 주세요"
               />
-              <StyleInputErro>{userPw ? '' : userPwTxt}</StyleInputErro>
+              <StyleInputErro>{userPw ? "" : userPwTxt}</StyleInputErro>
             </div>
           </div>
         </StyleFlex>

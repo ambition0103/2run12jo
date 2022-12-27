@@ -52,9 +52,9 @@ export const __modifySchedule = createAsyncThunk(
 export const __modifyEdittedTodo = createAsyncThunk(
   "modifyEdittedTodo",
   async (payload, thunkAPI) => {
-    console.log("payload", payload);
     try {
       await axios.patch(`http://localhost:3001/todos/${payload.id}`, {
+        userId: payload.userId,
         title: payload.title,
         content: payload.content,
         doneDate: payload.doneDate,
