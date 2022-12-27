@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { __modifySchedule } from '../../modules/todosSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import Button from '../button/Button';
 
 const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
   const modifyScheduleOnChange = (e) => {
     setTodoSchedule(e.target.value);
   };
-  
+
   const modifyScheduleButtonClick = () => {
     if (window.confirm('진행 상태를 변경하시겠습니까?')) {
       dispatch(__modifySchedule({ schedule: todoSchedule, id: todoId }));
@@ -70,9 +71,9 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
         />
         완료
       </label>
-      <button type="button" onClick={modifyScheduleButtonClick}>
+      <Button type="button" onClick={modifyScheduleButtonClick}>
         수정
-      </button>
+      </Button>
     </div>
   );
 };

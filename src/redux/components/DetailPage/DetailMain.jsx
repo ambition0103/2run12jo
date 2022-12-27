@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { __getTodos, __modifyEdittedTodo } from "../../modules/todosSlice";
 import DetailScheduleEdit from "../DetailPage/DetailScheduleEdit";
 import Comment from "../comments/Comment";
+import Button from "../button/Button";
 
 function DetailMain() {
   const dispatch = useDispatch();
@@ -86,15 +87,17 @@ function DetailMain() {
   return (
     <StyledDetailMain>
       <form onSubmit={onSubmitEdittedTodo}>
+        <ButtonWrapper>
+          <Button backgroundColor="#484848" radius="4">
+            뒤로가기
+          </Button>
+          <Button radius="4">수정하기</Button>
+        </ButtonWrapper>
         {/* 제목 */}
         <StyleContent className="title">
-          <input
-            placeholder={todosTitle}
-            value={editTitle}
-            onChange={editTitleChangeHandler}
-          />
+          <label>{todosTitle}</label>
+          <input value={editTitle} onChange={editTitleChangeHandler} />
         </StyleContent>
-
         {/* 담당자 */}
         <StyleContent>
           <ConentTitle>담당자 </ConentTitle>
@@ -105,7 +108,6 @@ function DetailMain() {
             onChange={editUserIdChangeHandler}
           />
         </StyleContent>
-
         {/* 진행상태 */}
         <StyleContent>
           <ConentTitle>진행 상태 </ConentTitle>
@@ -122,10 +124,10 @@ function DetailMain() {
             )}
           </div>
         </StyleContent>
-
         {/* 마감일시 */}
         <StyleContent>
           <ConentTitle>마감 일시 </ConentTitle>
+
           <input
             placeholder={todosDoneDate}
             value={editDoneDate}
@@ -133,20 +135,17 @@ function DetailMain() {
             type="date"
           />
         </StyleContent>
-
         {/* 내용 */}
-
         <StyleText>
           <ConentTitle>내용</ConentTitle>
 
           <textarea
             placeholder={todosContent}
+            setModifyValue={todosContent}
             value={editContent}
             onChange={editContentInputChangeHandler}
           ></textarea>
         </StyleText>
-
-        <button>수정하기</button>
       </form>
       <Comment />
     </StyledDetailMain>
@@ -156,6 +155,12 @@ function DetailMain() {
 export default DetailMain;
 
 //CSS
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2em;
+`;
 
 const StyledDetailMain = styled.div`
   width: 1200px;
@@ -185,17 +190,24 @@ const StyledDetailMain = styled.div`
 
 const StyleContent = styled.div`
   display: flex;
+  width: 80%;
   margin-bottom: 0.5em;
+
+  .title {
+    display: flex;
+  }
 
   > input {
     display: block;
     flex: 1;
     border: none;
     border-bottom: 1px solid #ddd;
+    outline: none;
   }
 `;
+
 const ConentTitle = styled.div`
-  font-weight: 700;
+  font-weight: 900;
   flex: 1;
 `;
 
@@ -208,8 +220,16 @@ const StyleText = styled.div`
     width: 100%;
     border: none;
     margin-top: 1em;
-    height: 600px;
+    min-height: 200px;
     border-radius: 4px;
-    background: #ddd;
+    resize: none;
+    outline: none;
+    font-size: 16px;
+    color: #000;
+
+    ::placeholder {
+      font-size: 16px;
+      color: #000;
+    }
   }
 `;
