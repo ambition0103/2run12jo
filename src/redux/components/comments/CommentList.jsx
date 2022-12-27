@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import Button from '../button/Button';
-import { __deleteComment, __modifyComment } from '../../modules/commentSlice';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import styled from "styled-components";
+import Button from "../button/Button";
+import { __deleteComment, __modifyComment } from "../../modules/commentSlice";
 
 function CommentList({ item }) {
   const [commentModify, setCommnetModify] = useState(false);
-  const [modifyValue, setModifyValue] = useState('');
+  const [modifyValue, setModifyValue] = useState("");
   const dispatch = useDispatch();
 
   //코멘트 수정
@@ -14,13 +14,13 @@ function CommentList({ item }) {
     //commentModify false 일때
     if (!commentModify) {
       const ModifyCommnet = window.prompt(
-        '수정을 위해서 비밀번호를 입력 해 주세요.',
-        '비밀번호를 입력해주세요.'
+        "수정을 위해서 비밀번호를 입력 해 주세요.",
+        "비밀번호를 입력해주세요."
       );
       if (ModifyCommnet === item.userPw) {
         setCommnetModify(!commentModify);
       } else {
-        window.confirm('비밀번호가 틀립니다. 다시 입력 해 주세요.');
+        window.confirm("비밀번호가 틀립니다. 다시 입력 해 주세요.");
       }
     } else {
       //변경할 내용을 객체로 받아와야함.
@@ -32,16 +32,16 @@ function CommentList({ item }) {
   //코멘트 삭제
   const commentDeleteButton = () => {
     const deleteCommnet = window.prompt(
-      '삭제를 위해서 비밀번호를 입력 해 주세요.',
-      '비밀번호를 입력해주세요.'
+      "삭제를 위해서 비밀번호를 입력 해 주세요.",
+      "비밀번호를 입력해주세요."
     );
 
     //비밀번호가 같을 때
     if (deleteCommnet === item.userPw) {
-      window.confirm('정말 삭제하겠습니까?');
+      window.confirm("정말 삭제하겠습니까?");
       dispatch(__deleteComment(item.id));
     } else {
-      window.confirm('비밀번호가 틀립니다. 다시 입력 해 주세요.');
+      window.confirm("비밀번호가 틀립니다. 다시 입력 해 주세요.");
     }
   };
 
@@ -70,7 +70,7 @@ function CommentList({ item }) {
             radius="100"
             ClickHandler={commentModifyButton}
           >
-            {commentModify ? '완료하기' : '수정하기'}
+            {commentModify ? "완료하기" : "수정하기"}
           </Button>
           <StyleMarginRight />
 

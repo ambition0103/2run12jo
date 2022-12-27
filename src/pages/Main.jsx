@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import Button from '../redux/components/button/Button';
-import TodoList from '../redux/components/TodoList/TodoList';
-import TodoForm from '../redux/components/todoForm/TodoForm';
-import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import Button from "../redux/components/button/Button";
+import TodoList from "../redux/components/TodoList/TodoList";
+import TodoForm from "../redux/components/todoForm/TodoForm";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 function Main() {
   const [modalSwitch, setModalSwitch] = useState(false);
