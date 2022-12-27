@@ -30,24 +30,51 @@ const Todo = ({ item }) => {
   };
 
   return (
-    <StyledTodoBox key={item.id}>
-      <div onClick={goToDetail}>
-        <h4>제목: {item.title}</h4>
-        <p>id: {item.id}</p>
-        <p>내용: {item.content}</p>
-        <p>schedule: {item.schedule}</p>
-        <p>이름: {item.userId}</p>
-        <p>비밀번호: {item.userPw}</p>
-        <p>마감일: {item.doneDate}</p>
-        <p>시작일: {item.startDate}</p>
-      </div>
-      <Button ClickHandler={todoListDeleteButton}>일정삭제</Button>
-    </StyledTodoBox>
+    <div key={item.id}>
+      <StyledTodoBox>
+        <StyledTodo onClick={goToDetail}>
+          <h4 className="title">{item.title}</h4>
+          <p className="user-name">{item.userId}</p>
+          <p className="date">{item.startDate}</p>
+        </StyledTodo>
+        <StyledButtonWrap>
+          <Button
+            radius="100"
+            backgroundColor="#484848"
+            ClickHandler={todoListDeleteButton}
+          >
+            일정삭제
+          </Button>
+        </StyledButtonWrap>
+      </StyledTodoBox>
+    </div>
   );
 };
 
 export default Todo;
 
 const StyledTodoBox = styled.div`
-  border: 1px solid black;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  padding: 1em;
+  cursor: pointer;
+`;
+
+const StyledTodo = styled.div`
+  > .title {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 1em;
+  }
+  .user-name {
+    padding: 0.5em 0;
+  }
+  .date {
+    font-size: 13px;
+  }
+`;
+
+const StyledButtonWrap = styled.div`
+  display: flex;
+  justify-content: flex-end;
 `;

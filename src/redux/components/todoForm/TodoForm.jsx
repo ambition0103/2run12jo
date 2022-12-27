@@ -11,7 +11,7 @@ const TodoForm = ({ setModalSwitch, modalSwitch }) => {
   // 일정추가 form input
   const [todoValue, setTodoValue] = useState({
     id: uuidv4(),
-    schedule: ['시작전', '시작예정', '진행중', '완료'],
+    schedule: '시작전',
     title: '',
     content: '',
     userId: '',
@@ -105,7 +105,7 @@ const TodoForm = ({ setModalSwitch, modalSwitch }) => {
                   id="schedule-list0"
                   name="schedule-list"
                   value={'시작전'}
-                  //   checked
+                  defaultChecked
                 />
                 시작전
               </label>
@@ -294,6 +294,7 @@ const StyleFlex = styled.div`
 const PopupWrapper = styled.div`
   position: fixed;
   top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -302,6 +303,7 @@ const PopupWrapper = styled.div`
   padding: 3em 0;
   background-color: rgba(0, 0, 0, 0.5);
 `;
+
 const StyleTodoForm = styled.div`
   width: 500px;
   padding: 24px;
