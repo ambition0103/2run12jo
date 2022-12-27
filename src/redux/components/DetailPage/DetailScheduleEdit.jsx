@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-// import { useSelector } from "react-redux";
-import { __modifySchedule, __getTodos } from "../../modules/todosSlice";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from 'react';
+import { __modifySchedule } from '../../modules/todosSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
   const dispatch = useDispatch();
@@ -17,18 +16,14 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
   const modifyScheduleOnChange = (e) => {
     setTodoSchedule(e.target.value);
   };
-
+  
   const modifyScheduleButtonClick = () => {
-    dispatch(__modifySchedule({ schedule: todoSchedule, id: todoId }));
-
-    // if (window.confirm("진행 상태를 변경하시겠습니까?")) {
-    // }
+    if (window.confirm('진행 상태를 변경하시겠습니까?')) {
+      dispatch(__modifySchedule({ schedule: todoSchedule, id: todoId }));
+    }
+    window.location.reload();
     // setButtonSwitch(false);
   };
-
-  // useEffect(() => {
-  //   dispatch(__modifySchedule());
-  // }, [modifyScheduleButtonClick]);
 
   return (
     <div className="check-box">
@@ -38,8 +33,8 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
           type="radio"
           id="schedule-list0"
           name="schedule-list"
-          value={"시작전"}
-          // defaultChecked
+          value={'시작전'}
+          defaultChecked
         />
         시작전
       </label>
@@ -49,7 +44,7 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
           type="radio"
           id="schedule-list1"
           name="schedule-list"
-          value={"시작예정"}
+          value={'시작예정'}
         />
         시작예정
       </label>
@@ -60,7 +55,7 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
           type="radio"
           id="schedule-list2"
           name="schedule-list"
-          value={"진행중"}
+          value={'진행중'}
         />
         진행중
       </label>
@@ -71,11 +66,13 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
           type="radio"
           id="schedule-list3"
           name="schedule-list"
-          value={"완료"}
+          value={'완료'}
         />
         완료
       </label>
-      <button onClick={modifyScheduleButtonClick}>수정</button>
+      <button type="button" onClick={modifyScheduleButtonClick}>
+        수정
+      </button>
     </div>
   );
 };

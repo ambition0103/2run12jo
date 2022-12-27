@@ -4,14 +4,10 @@ import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { __getTodos, __modifyEdittedTodo } from '../../modules/todosSlice';
 import DetailScheduleEdit from '../DetailPage/DetailScheduleEdit';
-import Comment from '../commentsComment';
+import Comment from '../comments/Comment';
 
 function DetailMain() {
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(__getTodos());
-  }, [dispatch]);
 
   // useNavigate로 전달한 props(todo의 id)
   const location = useLocation();
@@ -67,86 +63,69 @@ function DetailMain() {
     );
   };
 
+  useEffect(() => {
+    dispatch(__getTodos());
+  }, [dispatch]);
+
   return (
     <StyledDetailMain>
-      {/* 제목 */}
       <form onSubmit={onSubmitEdittedTodo}>
-        <StyledDetailTitleDivBox>
-          <StyledDetailTitleText
+        {/* 제목 */}
+        <StyleContent className="title">
+          <input
             placeholder={todosTitle}
             value={editTitle}
             onChange={editTitleChangeHandler}
           />
-          {/* 컴포넌트 내부에서 map을 통해 새로운 컴포넌트가 아닌 다른 데이터를 return하면
-          Array.prototype.map() expects a value to be returned at the end of arrow function  array-callback-return
-          위 오류가 발생할 확률이 증가한다. 그래서 &&연산자를 통해 내가 원하는 값을 텍스트로 출력. */}
-          <button>수정하기</button>
-        </StyledDetailTitleDivBox>
+        </StyleContent>
 
-        <StyledDetailInformationDivBox>
-          {/* 담당자 */}
-          <StyledDetailInformationSubBox>
-            <StyledDetailInformationStaticText>
-              담당자{' '}
-            </StyledDetailInformationStaticText>
-            {todosUserId}
-          </StyledDetailInformationSubBox>
+        {/* 담당자 */}
+        <StyleContent>
+          <ConentTitle>담당자 </ConentTitle>
+          <span>{todosUserId}</span>
+        </StyleContent>
 
-          {/* 진행상태 */}
-          <StyledDetailInformationSubBox>
-            <StyledDetailInformationStaticText>
-              진행 상태{' '}
-            </StyledDetailInformationStaticText>
+        {/* 진행상태 */}
+        <StyleContent>
+          <ConentTitle>진행 상태 </ConentTitle>
 
-            <StyledDetailInformationVariableText
-              onClick={openScheduleEditButton}
-            >
-              {buttonSwitch ? (
-                <DetailScheduleEdit
-                  todoId={todoId}
-                  buttonSwitch={buttonSwitch}
-                  setButtonSwitch={setButtonSwitch}
-                />
-              ) : (
-                todosSchedule
-              )}
-            </StyledDetailInformationVariableText>
-          </StyledDetailInformationSubBox>
+          <div onClick={openScheduleEditButton}>
+            {buttonSwitch ? (
+              <DetailScheduleEdit
+                todoId={todoId}
+                buttonSwitch={buttonSwitch}
+                setButtonSwitch={setButtonSwitch}
+              />
+            ) : (
+              todosSchedule
+            )}
+          </div>
+        </StyleContent>
 
-          {/* 생성일시 */}
-          <StyledDetailInformationSubBox>
-            <StyledDetailInformationStaticText>
-              생성 일시{' '}
-            </StyledDetailInformationStaticText>
-
-            <StyledDetailTitleText placeholder={todosStartDate} />
-          </StyledDetailInformationSubBox>
-
-          {/* 마감일시 */}
-          <StyledDetailInformationSubBox>
-            <StyledDetailInformationStaticText>
-              마감 일시{' '}
-            </StyledDetailInformationStaticText>
-            <StyledDetailTitleText
-              placeholder={todosDoneDate}
-              value={editDoneDate}
-              onChange={editDoneDateChangeHandler}
-            />
-          </StyledDetailInformationSubBox>
-        </StyledDetailInformationDivBox>
+        {/* 마감일시 */}
+        <StyleContent>
+          <ConentTitle>마감 일시 </ConentTitle>
+          <input
+            placeholder={todosDoneDate}
+            value={editDoneDate}
+            onChange={editDoneDateChangeHandler}
+            type="date"
+          />
+        </StyleContent>
 
         {/* 내용 */}
-        <StyledDetailContentsDivBox>
-          <StyledDetailContentsEditButtonBox>
-            <StyledDetailContentsStatic>내용</StyledDetailContentsStatic>
-          </StyledDetailContentsEditButtonBox>
+
+        <StyleText>
+          <ConentTitle>내용</ConentTitle>
 
           <textarea
             placeholder={todosContent}
             value={editContent}
             onChange={editContentInputChangeHandler}
           ></textarea>
-        </StyledDetailContentsDivBox>
+        </StyleText>
+
+        <button>수정하기</button>
       </form>
       <Comment />
     </StyledDetailMain>
@@ -166,16 +145,50 @@ const StyledDetailMain = styled.div`
     padding: 24px;
     box-sizing: border-box;
   }
+
+  .title {
+    margin-bottom: 1em;
+    > input {
+      border: none;
+      font-size: 24px;
+      color: #000;
+      outline: none;
+
+      ::placeholder {
+        font-size: 24px;
+        color: #000;
+      }
+    }
+  }
 `;
 
-const StyledDetailTitleDivBox = styled.div``;
+const StyleContent = styled.div`
+  display: flex;
+  margin-bottom: 0.5em;
 
-const StyledDetailTitleText = styled.input``;
+  > input {
+    display: block;
+    flex: 1;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+`;
+const ConentTitle = styled.div`
+  font-weight: 700;
+  flex: 1;
+`;
 
-const StyledDetailInformationDivBox = styled.div``;
-const StyledDetailInformationSubBox = styled.div``;
-const StyledDetailInformationStaticText = styled.span``;
-const StyledDetailInformationVariableText = styled.span``;
-const StyledDetailContentsDivBox = styled.div``;
-const StyledDetailContentsEditButtonBox = styled.div``;
-const StyledDetailContentsStatic = styled.span``;
+const StyleText = styled.div`
+  margin: 1.5em 0;
+  border-top: 1px solid #ddd;
+  padding: 2em 0;
+
+  > textarea {
+    width: 100%;
+    border: none;
+    margin-top: 1em;
+    height: 600px;
+    border-radius: 4px;
+    background: #ddd;
+  }
+`;
