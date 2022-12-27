@@ -92,6 +92,7 @@ const StyleTodoWrap = styled.div`
   gap: 24px;
   margin-top: 2em;
   width: 1400px;
+  height: 400px;
 
   @media (max-width: 1600px) {
     width: 100%;
@@ -104,5 +105,8 @@ const StyleTodoWrap = styled.div`
     box-sizing: border-box;
     overflow-x: scroll;
     border: 1px solid #e6e6e6;
+  }
+  @media (max-width: 600px) {
+    height: auto;
   }
 `;

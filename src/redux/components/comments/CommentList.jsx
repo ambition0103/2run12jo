@@ -65,22 +65,24 @@ function CommentList({ item }) {
               }}
             />
           )}
-          <Button
-            backgroundColor="#2F80ED"
-            radius="100"
-            ClickHandler={commentModifyButton}
-          >
-            {commentModify ? '완료하기' : '수정하기'}
-          </Button>
-          <StyleMarginRight />
+          <StyleButtonWrap>
+            <Button
+              backgroundColor="#2F80ED"
+              radius="100"
+              ClickHandler={commentModifyButton}
+            >
+              {commentModify ? '완료하기' : '수정하기'}
+            </Button>
+            <StyleMarginRight />
 
-          <Button
-            backgroundColor="#8d8d8d"
-            radius="100"
-            ClickHandler={commentDeleteButton}
-          >
-            삭제하기
-          </Button>
+            <Button
+              backgroundColor="#8d8d8d"
+              radius="100"
+              ClickHandler={commentDeleteButton}
+            >
+              삭제하기
+            </Button>
+          </StyleButtonWrap>
         </div>
       </StyleComments>
     </>
@@ -95,6 +97,10 @@ const StyleComments = styled.div`
   justify-content: space-between;
   padding: 8px 24px;
 
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+
   .comment-date {
     color: #535353;
     font-size: 11px;
@@ -106,11 +112,24 @@ const StyleComments = styled.div`
       width: calc(100% / 2);
       line-height: 1.3;
     }
+    @media (max-width: 600px) {
+      width: 100%;
+    }
   }
+
   .comment-modify {
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 600px) {
+      width: 100%;
+      justify-content: flex-end;
+    }
+
     > span {
       margin-right: 16px;
     }
+
     .comment-user {
       font-weight: 700;
     }
@@ -134,3 +153,4 @@ const StyleComments = styled.div`
 `;
 
 const StyleMarginRight = styled.span``;
+const StyleButtonWrap = styled.div``;

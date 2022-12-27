@@ -17,6 +17,7 @@ const StyleFooter = styled.div`
   width: 100%;
   padding: 1em;
   text-align: center;
+  z-index: -1;
 
   > span {
     font-weight: 900;

@@ -24,6 +24,11 @@ const StyleHeader = styled.header`
   justify-content: space-between;
   padding: 2em 1.6em;
 
+  @media (max-width: 600px) {
+    flex-direction: column;
+    width: 100%;
+    gap: 16px;
+  }
   > h1 {
     font-size: 36px;
     font-weight: 900;
