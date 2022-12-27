@@ -2,23 +2,23 @@
   "todos": [
     {
       "id": "e8221cce-3a5a-4d09-a151-0602f2b38285",
-      "title": "프로젝트 와이어프레임 제작",
-      "content": "프로젝트 와이어프레임 제작",
+      "title": "",
+      "content": "",
       "userId": "성태영,이재성",
       "userPw": "1",
       "startDate": "2022. 12. 27.",
-      "doneDate": "2022-12-28",
-      "schedule": "시작전"
+      "doneDate": "",
+      "schedule": "진행중"
     },
     {
       "id": "d80fc6c7-86fd-4545-b3f7-fb7424b93f43",
-      "title": "프로젝트 발표영상 제작",
-      "content": "프로젝트 발표영상 제작",
+      "title": "123123123",
+      "content": "12312312",
       "userId": "김남규, 조용현",
       "userPw": "1",
       "startDate": "2022. 12. 27.",
-      "doneDate": "2022-12-28",
-      "schedule": "시작예정"
+      "doneDate": "123123123",
+      "schedule": ""
     },
     {
       "id": "af05d198-0b1a-452b-949d-5b6c18ea111c",
@@ -62,13 +62,13 @@
     },
     {
       "id": "725e5c6d-a38d-4624-97c8-ff1a19f310ce",
-      "title": "프로젝트 발표 자료 준비",
-      "content": "프로젝트 발표 자료 준비",
+      "title": "",
+      "content": "",
       "userId": "이재성",
       "userPw": "1",
       "startDate": "2022. 12. 27.",
-      "doneDate": "2022-12-28",
-      "schedule": "시작예정"
+      "doneDate": "",
+      "schedule": "시작전"
     }
   ],
   "commentLists": [
