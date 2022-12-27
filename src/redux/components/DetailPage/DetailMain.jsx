@@ -8,6 +8,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { __getTodos } from '../../modules/todosSlice';
 import Comment from '../comments/Comment';
+import TodoDetail from './TodoDetail';
 // import {v4 as uuidv4} from 'uuid';
 
 function DetailMain() {
@@ -33,75 +34,88 @@ function DetailMain() {
   const { todos } = useSelector((state) => state.allTodos);
   const params = useParams();
 
-  console.log('params', params);
-
+  useEffect(() => {
+    dispatch(__getTodos());
+  }, [dispatch]);
+  const idValue = todos.filter((item) => todoId === item.id);
+  
   return (
-    <div>
-      {/* 제목 */}
-      <TitleBox>
-        {/* {todos.map((item) => {
-          if (item.id === todoId) {
-            return item.title;
-          }
-        })} */}
-      </TitleBox>
-
-      <InformationBox>
-        {/* 담당자 */}
-        <Information>
-          담당자{' '}
-          {/* {todos.map((item) => {
-            if (item.id === todoId) {
-              return item.userName;
-            }
-          })} */}
-        </Information>
-
-        {/* 진행상태 */}
-        <Information>
-          진행 상태{' '}
-          <StyledInput>
-            <input />
-          </StyledInput>
-        </Information>
-
-        {/* 생성일시 */}
-        <Information>
-          생성 일시{' '}
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            locale={ko} // 한글로 변경
-            dateFormat="yyyy.MM.dd (eee)" // 시간 포맷 변경
-            showPopperArrow={false} // 화살표 변경
-            minDate={new Date()} // 오늘 날짜 전은 선택 못하게
-          />
-        </Information>
-
-        {/* 마감일시 */}
-        <Information>
-          마감 일시{' '}
-          <DatePicker
-            selected={completionDate}
-            onChange={(date) => setCompletionDate(date)}
-            locale={ko} // 한글로 변경
-            dateFormat="yyyy.MM.dd (eee)" // 시간 포맷 변경
-            showPopperArrow={false} // 화살표 변경
-            minDate={new Date()} // 오늘 날짜 전은 선택 못하게
-          />
-        </Information>
-      </InformationBox>
-
-      {/* 내용 */}
-      <form>
-        <textarea value={text} onChange={textInput}></textarea>
-        <button>추가하기</button>
-      </form>
-
-      <div>{text}</div>
-      
+    <>
+      <div>
+        {idValue.map((item) => {
+          return <TodoDetail item={item} todoId={todoId} />;
+        })}
+      </div>
       <Comment />
-    </div>
+    </>
+
+    // <div>
+    //   {/* 제목 */}
+    //   <TitleBox>
+    //     {/* {todos.map((item) => {
+    //       if (item.id === todoId) {
+    //         return item.title;
+    //       }
+    //     })} */}
+    //   </TitleBox>
+
+    //   <InformationBox>
+    //     {/* 담당자 */}
+    //     <Information>
+    //       담당자{' '}
+    //       {/* {todos.map((item) => {
+    //         if (item.id === todoId) {
+    //           return item.userName;
+    //         }
+    //       })} */}
+    //       <input />
+    //     </Information>
+
+    //     {/* 진행상태 */}
+    //     <Information>
+    //       진행 상태{' '}
+    //       <StyledInput>
+    //         <input />
+    //       </StyledInput>
+    //     </Information>
+
+    //     {/* 생성일시 */}
+    //     <Information>
+    //       생성 일시{' '}
+    //       <DatePicker
+    //         selected={startDate}
+    //         onChange={(date) => setStartDate(date)}
+    //         locale={ko} // 한글로 변경
+    //         dateFormat="yyyy.MM.dd (eee)" // 시간 포맷 변경
+    //         showPopperArrow={false} // 화살표 변경
+    //         minDate={new Date()} // 오늘 날짜 전은 선택 못하게
+    //       />
+    //     </Information>
+
+    //     {/* 마감일시 */}
+    //     <Information>
+    //       마감 일시{' '}
+    //       <DatePicker
+    //         selected={completionDate}
+    //         onChange={(date) => setCompletionDate(date)}
+    //         locale={ko} // 한글로 변경
+    //         dateFormat="yyyy.MM.dd (eee)" // 시간 포맷 변경
+    //         showPopperArrow={false} // 화살표 변경
+    //         minDate={new Date()} // 오늘 날짜 전은 선택 못하게
+    //       />
+    //     </Information>
+    //   </InformationBox>
+
+    //   {/* 내용 */}
+    //   <form>
+    //     <textarea value={text} onChange={textInput}></textarea>
+    //     <button>추가하기</button>
+    //   </form>
+
+    //   <div>{text}</div>
+
+    //
+    // </div>
   );
 }
 
