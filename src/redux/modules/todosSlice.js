@@ -13,7 +13,7 @@ export const __getTodos = createAsyncThunk(
   "getTodos",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/todos");
+      const data = await axios.get(process.env.REACT_APP_TODOS / todos);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -26,7 +26,7 @@ export const __postTodos = createAsyncThunk(
   "addTodos",
   async (payload, thunkAPI) => {
     try {
-      await axios.post("http://localhost:3001/todos", payload);
+      await axios.post(process.env.REACT_APP_TODOS / todos, payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -39,7 +39,7 @@ export const __modifySchedule = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
-      await axios.patch(`http://localhost:3001/todos/${payload.id}`, {
+      await axios.patch(`${process.env.REACT_APP_TODOS}/todos/${payload.id}`, {
         schedule: payload.schedule,
       });
       return thunkAPI.fulfillWithValue(payload);
@@ -54,7 +54,7 @@ export const __modifyEdittedTodo = createAsyncThunk(
   async (payload, thunkAPI) => {
     console.log("payload", payload);
     try {
-      await axios.patch(`http://localhost:3001/todos/${payload.id}`, {
+      await axios.patch(`${process.env.REACT_APP_TODOS}/todos/${payload.id}`, {
         title: payload.title,
         content: payload.content,
         doneDate: payload.doneDate,
@@ -71,7 +71,7 @@ export const __deleteTodos = createAsyncThunk(
   "deleteTodos",
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(`http://localhost:3001/todos/${payload}`);
+      await axios.delete(`${process.env.REACT_APP_TODOS}/todos/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

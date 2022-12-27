@@ -12,7 +12,7 @@ const AddForm = ({ setTodos }) => {
 
   //api
   const fetchTodos = async () => {
-    const { data } = await axios.get("http://localhost:3001/todos");
+    const { data } = await axios.get(process.env.REACT_APP_TODOS / todos);
     setTodos(data);
   };
 
