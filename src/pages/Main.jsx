@@ -15,7 +15,9 @@ function Main() {
   return (
     <StyleContentsWrapper>
       <StyleSubTitle>
-        <h3>자유롭게 팀프로젝트를 만들어보세요.</h3>
+        <h3>
+          <span>자유롭게</span> 팀프로젝트를 만들어보세요.
+        </h3>
         <p>여러상태로 프로젝트를 관리 할수 있습니다.</p>
       </StyleSubTitle>
 
@@ -48,12 +50,18 @@ const StyleContentsWrapper = styled.div`
 
 const StyleSubTitle = styled.div`
   border-bottom: 1px solid #ddd;
-  padding: 2em 0em;
+  padding: 1em 0 2em 0em;
   margin-bottom: 1em;
 
   > h3 {
     font-size: 24px;
     font-weight: 600;
+
+    > span {
+      color: #3187f1;
+      font-weight: 900;
+      font-size: 32px;
+    }
   }
   > p {
     margin-top: 1em;

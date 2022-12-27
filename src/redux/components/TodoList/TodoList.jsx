@@ -64,6 +64,8 @@ const StyleFlex = styled.div`
 `;
 
 const StyleTitle = styled.div`
+  font-size: 14px;
+  font-weight: bold;
   .before {
     background-color: #ffdfdf;
 

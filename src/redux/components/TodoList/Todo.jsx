@@ -66,7 +66,7 @@ const StyledTodo = styled.div`
   > .title {
     font-size: 18px;
     font-weight: 800;
-    margin-bottom: 1em;
+    padding: 0.4em 0;
   }
   .user-name {
     padding: 0.5em 0;

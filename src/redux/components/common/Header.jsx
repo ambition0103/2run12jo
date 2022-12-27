@@ -5,7 +5,7 @@ function Header() {
   return (
     <StyleHeader>
       <h1>
-        <span>P</span>roject <span>A</span>pp.
+        <span className="icon">📚</span> <span>P</span>roject <span>A</span>pp
       </h1>
       <p>
         <span>안녕</span>하세요.
@@ -25,11 +25,16 @@ const StyleHeader = styled.header`
   > h1 {
     font-size: 36px;
     font-weight: 900;
+    .icon {
+      font-size: 24px;
+      vertical-align: middle;
+    }
   }
   > p {
     font-size: 16px;
   }
   span {
     color: #2f80ed;
+    font-weight: 800;
   }
 `;
