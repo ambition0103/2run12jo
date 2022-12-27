@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Button from '../button/Button';
 import { __deleteTodos } from '../../modules/todosSlice';
 import { useDispatch } from 'react-redux';
-const Todo = ({ item }) => {
+const Todo = ({ item, title }) => {
   const dispatch = useDispatch();
 
   //링크이동
@@ -30,24 +30,26 @@ const Todo = ({ item }) => {
   };
 
   return (
-    <div key={item.id}>
-      <StyledTodoBox>
-        <StyledTodo onClick={goToDetail}>
-          <h4 className="title">{item.title}</h4>
-          <p className="user-name">{item.userId}</p>
-          <p className="date">{item.startDate}</p>
-        </StyledTodo>
-        <StyledButtonWrap>
-          <Button
-            radius="100"
-            backgroundColor="#484848"
-            ClickHandler={todoListDeleteButton}
-          >
-            일정삭제
-          </Button>
-        </StyledButtonWrap>
-      </StyledTodoBox>
-    </div>
+    <>
+      {item.schedule === title && (
+        <StyledTodoBox>
+          <StyledTodo onClick={goToDetail}>
+            <h4 className="title">{item.title}</h4>
+            <p className="user-name">{item.userId}</p>
+            <p className="date">{item.startDate}</p>
+          </StyledTodo>
+          <StyledButtonWrap>
+            <Button
+              radius="100"
+              backgroundColor="#484848"
+              ClickHandler={todoListDeleteButton}
+            >
+              일정삭제
+            </Button>
+          </StyledButtonWrap>
+        </StyledTodoBox>
+      )}
+    </>
   );
 };
 

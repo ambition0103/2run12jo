@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function Footer() {
   return (
     <StyleFooter>
-      Made in <span>2run2jo</span>
+      Made in <span>2run12jo</span>
     </StyleFooter>
   );
 }

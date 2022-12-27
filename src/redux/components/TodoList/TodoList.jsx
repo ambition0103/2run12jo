@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { __getTodos, __postTodos } from "../../modules/todosSlice";
-import Todo from "./Todo";
-import styled from "styled-components";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { __getTodos, __postTodos } from '../../modules/todosSlice';
+import Todo from './Todo';
+import styled from 'styled-components';
 
 const TodoList = ({ title, className }) => {
   const dispatch = useDispatch();
@@ -34,23 +34,16 @@ const TodoList = ({ title, className }) => {
   }
 
   return (
-    <StyleFlex className="todos-wrapeer">
-      <StyleTitle>
+    <StyleFlex>
+      <StyleTitle className="title">
         <StyleTitleColor className={className}>
           <StylePoint className="point" />
           {title}
         </StyleTitleColor>
       </StyleTitle>
+
       {todos.map((item) => {
-        return (
-          <>
-            {item.schedule === title && (
-              <>
-                <Todo item={item} />
-              </>
-            )}
-          </>
-        );
+        return <Todo item={item} title={title} key={item.id} />;
       })}
     </StyleFlex>
   );
