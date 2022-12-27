@@ -2,18 +2,59 @@
   "todos": [
     {
       "id": "e51c5f5b-7994-480d-b45a-9edb009c4c91",
-      "schedule": "",
+      "schedule": "시작전",
       "userName": "영주",
       "todoPassword": "123",
       "title": "제목입니다",
       "content": "내용입니다",
-      "date": ""
+      "startDate": "10.10.10",
+      "doneDate": "10.10.10"
+    },
+    {
+      "id": "ee17f286-eda7-4691-9ca9-df26f82efef4",
+      "schedule": "시작예정",
+      "userName": "헤헤헤",
+      "todoPassword": "123",
+      "title": "하하하",
+      "content": "호호호",
+      "startDate": "11.11.11",
+      "donetDate": "11.11.11"
+    },
+    {
+      "id": "943925d8-9c03-4122-9090-ef5cda8d0db3",
+      "schedule": "진행중",
+      "userName": "ㅁㄴㅇㄹ",
+      "todoPassword": "asdf",
+      "title": "ㅁㄴㅇㄹ",
+      "content": "ㅁㄴㅇㄹ",
+      "startDate": "11.11.11",
+      "donetDate": "11.11.11"
+    },
+    {
+      "id": "3a788338-430f-4b67-8b31-d6d7d9b5f8da",
+      "schedule": "완료",
+      "userName": "",
+      "todoPassword": "",
+      "title": "",
+      "content": "",
+      "startDate": "11.11.11",
+      "donetDate": "11.11.11"
+    },
+    {
+      "id": "19aa15a7-532e-43e0-acf0-db040cf5d326",
+      "schedule": "0",
+      "userName": "123",
+      "todoPassword": "123",
+      "title": "태영님",
+      "content": "노력하세욥",
+      "startDate": "11.11.11",
+      "donetDate": "11.11.11"
     }
   ],
   "comments": [
     {
       "id": 1,
-      "userName": "",
+      "userName": "1",
       "commentPassword": "",
       "content": "json-server를 배워봅시다.",
       "date": "date"

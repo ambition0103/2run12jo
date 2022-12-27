@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // 관리해야 할 state
@@ -10,7 +10,6 @@ const initialState = {
   todos: [],
   isLoading: false,
   error: null,
-  isAdded: false, // AddScheduleInput 컴포넌트에서 todo 추가 시 리렌더링을 위해 썼음
 };
 // 123
 // 서버와 데이터 통신
@@ -33,6 +32,22 @@ export const __postTodos = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await axios.post("http://localhost:3001/todos", payload);
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __modifySchedule = createAsyncThunk(
+  "modifyschedule",
+  async (payload, thunkAPI) => {
+    try {
+      await axios.patch(`http://localhost:3001/commentLists/${payload.id}`, {
+        schedule: payload.schedule,
+      });
+
+      return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -66,13 +81,31 @@ const todosSlice = createSlice({
     [__postTodos.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
-    [__postTodos.fulfilled]: (state) => {
+    [__postTodos.fulfilled]: (state, action) => {
       state.isLoading = false; // 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.isAdded = !state.isAdded; //. Todolist 컴포넌트에서 post요청이 끝났을 때, isAdded 값이 변경되면 __getTodos()가 실행된다.
+      state.todos = [...state.todos, action.payload]; // 실제 post 동작을 수행합니다.
     },
     [__postTodos.rejected]: (state, action) => {
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
+    },
+    //modifyschedule
+    [__modifySchedule.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__modifySchedule.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = current(state).todos.map((item) => {
+        if (item.id === action.payload.id) {
+          return { ...item, schedule: action.payload.schedule };
+        } else {
+          return item;
+        }
+      });
+    },
+    [__modifySchedule.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });
