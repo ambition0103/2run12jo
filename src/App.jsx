@@ -1,5 +1,5 @@
-import Router from "./shared/Router";
-import { Reset } from "styled-reset";
+import Router from './shared/Router';
+import { Reset } from 'styled-reset';
 
 function App() {
   return (

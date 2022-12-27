@@ -8,8 +8,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { __getTodos } from "../../modules/todosSlice";
 import DetailScheduleEdit from "../DetailPage/DetailScheduleEdit";
 
-// import {v4 as uuidv4} from 'uuid';
-
 function DetailMain() {
   const dispatch = useDispatch();
 

@@ -1,45 +1,22 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Cmview from "./Cmview";
-import CmWrite from "./CmWrite";
-import { v4 as uuidv4 } from "uuid";
+import React from 'react';
+import styled from 'styled-components';
+import CommentView from './CommentView';
+import CommentWrite from './CommentWrite';
+import { useLocation } from 'react-router-dom';
 
 function Comment() {
-  const [commentList, setCommentList] = useState(initailState);
+  const location = useLocation();
+  const commentId = location && location.pathname.split('/')[1];
 
   return (
     <StyleCommentWrap>
-      <CmWrite setCommentList={setCommentList} commentList={commentList} />
-      <Cmview commentList={commentList} setCommentList={setCommentList} />
+      <CommentWrite commentId={commentId} />
+      <CommentView commentId={commentId} />
     </StyleCommentWrap>
   );
 }
 
 export default Comment;
-
-const initailState = [
-  {
-    id: uuidv4(),
-    comment: "코멘트1",
-    userId: "user1",
-    userPw: "dffddfdf",
-    date: "22.12.25",
-  },
-  {
-    id: uuidv4(),
-    comment: "코멘트2코멘트2코멘트2코멘트2코멘트2코멘트2",
-    userId: "user1",
-    userPw: "dffddfdf",
-    date: "22.12.25",
-  },
-  {
-    id: uuidv4(),
-    comment: "코멘트3",
-    userId: "user1",
-    userPw: "dffddfdf",
-    date: "22.12.25",
-  },
-];
 
 const StyleCommentWrap = styled.div`
   width: calc(100% - 24px);

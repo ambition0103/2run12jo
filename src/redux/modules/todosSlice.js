@@ -28,7 +28,7 @@ export const __getTodos = createAsyncThunk(
 
 // POST
 export const __postTodos = createAsyncThunk(
-  "todos/postTodos",
+  "addTodos",
   async (payload, thunkAPI) => {
     try {
       await axios.post("http://localhost:3001/todos", payload);
@@ -46,7 +46,19 @@ export const __modifySchedule = createAsyncThunk(
       await axios.patch(`http://localhost:3001/commentLists/${payload.id}`, {
         schedule: payload.schedule,
       });
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
+//삭제
+export const __deleteTodos = createAsyncThunk(
+  "deleteTodos",
+  async (payload, thunkAPI) => {
+    try {
+      await axios.delete(`http://localhost:3001/todos/${payload}`);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -57,16 +69,9 @@ export const __modifySchedule = createAsyncThunk(
 const todosSlice = createSlice({
   name: "todos",
   initialState,
-  reducers: {
-    addTodo: (state, action) => {
-      state.todos = [...state.todos, action.payload]; // payload는 객체
-    },
 
-    deleteTitle: (state, action) => {
-      state.todos.filter((item) => item.id !== action.payload); // payload는 해당 객체의 id
-    },
-  },
   extraReducers: {
+    //getToto
     [__getTodos.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
@@ -78,6 +83,8 @@ const todosSlice = createSlice({
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
+
+    //addTodos
     [__postTodos.pending]: (state) => {
       state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
     },
@@ -107,10 +114,25 @@ const todosSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
+
+    //deleteTodos
+    [__deleteTodos.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__deleteTodos.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = state.todos.filter(
+        (comment) => comment.id !== action.payload
+      );
+    },
+    [__deleteTodos.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
   },
 });
 
 // 액션크리에이터는 컴포넌트에서 사용하기 위해 export 하고
-export const { addTodo } = todosSlice.actions;
+export const { addTodos, deleteTodos } = todosSlice.actions;
 // reducer 는 configStore에 등록하기 위해 export default 합니다.
 export default todosSlice.reducer;

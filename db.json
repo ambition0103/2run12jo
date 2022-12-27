@@ -1,63 +1,74 @@
 {
   "todos": [
     {
-      "id": "e51c5f5b-7994-480d-b45a-9edb009c4c91",
-      "schedule": "시작전",
-      "userName": "영주",
-      "todoPassword": "123",
-      "title": "제목입니다",
-      "content": "내용입니다",
-      "startDate": "10.10.10",
-      "doneDate": "10.10.10"
+      "id": "e8221cce-3a5a-4d09-a151-0602f2b38285",
+      "title": "프로젝트 와이어프레임 제작",
+      "content": "프로젝트 와이어프레임 제작",
+      "userId": "성태영,이재성",
+      "userPw": "1",
+      "startDate": "2022. 12. 27.",
+      "doneDate": "2022-12-28",
+      "schedule": "시작전"
     },
     {
-      "id": "ee17f286-eda7-4691-9ca9-df26f82efef4",
-      "schedule": "시작예정",
-      "userName": "헤헤헤",
-      "todoPassword": "123",
-      "title": "하하하",
-      "content": "호호호",
-      "startDate": "11.11.11",
-      "donetDate": "11.11.11"
+      "id": "d80fc6c7-86fd-4545-b3f7-fb7424b93f43",
+      "title": "프로젝트 발표영상 제작",
+      "content": "프로젝트 발표영상 제작",
+      "userId": "김남규, 조용현",
+      "userPw": "1",
+      "startDate": "2022. 12. 27.",
+      "doneDate": "2022-12-28",
+      "schedule": "시작예정"
     },
     {
-      "id": "943925d8-9c03-4122-9090-ef5cda8d0db3",
-      "schedule": "진행중",
-      "userName": "ㅁㄴㅇㄹ",
-      "todoPassword": "asdf",
-      "title": "ㅁㄴㅇㄹ",
-      "content": "ㅁㄴㅇㄹ",
-      "startDate": "11.11.11",
-      "donetDate": "11.11.11"
+      "id": "af05d198-0b1a-452b-949d-5b6c18ea111c",
+      "title": "todoList component 제작",
+      "content": "todoList component 제작 후 API 통신",
+      "userId": "성영주, 이재성",
+      "userPw": "1",
+      "startDate": "2022. 12. 27.",
+      "doneDate": "2022-12-28",
+      "schedule": "진행중"
     },
     {
-      "id": "3a788338-430f-4b67-8b31-d6d7d9b5f8da",
-      "schedule": "완료",
-      "userName": "",
-      "todoPassword": "",
-      "title": "",
-      "content": "",
-      "startDate": "11.11.11",
-      "donetDate": "11.11.11"
+      "id": "b72b355f-410a-49d1-86fa-109d2b58b40a",
+      "title": "프로젝트 S.A 제작 및 제출",
+      "content": "프로젝트 소개글 작성 후 금일 1시까지 제출",
+      "userId": "성영주, 조용현",
+      "userPw": "1",
+      "startDate": "2022. 12. 27.",
+      "doneDate": "2022-12-22",
+      "schedule": "완료"
     },
     {
-      "id": "19aa15a7-532e-43e0-acf0-db040cf5d326",
-      "schedule": "0",
-      "userName": "123",
-      "todoPassword": "123",
-      "title": "태영님",
-      "content": "노력하세욥",
-      "startDate": "11.11.11",
-      "donetDate": "11.11.11"
-    }
-  ],
-  "comments": [
+      "id": "296ff82f-2efe-4d7b-a19f-8b650f70a94b",
+      "title": "API 설계",
+      "content": "server json API 설계",
+      "userId": "김남규",
+      "userPw": "1",
+      "startDate": "2022. 12. 27.",
+      "doneDate": "2022-12-22",
+      "schedule": "완료"
+    },
     {
-      "id": 1,
-      "userName": "1",
-      "commentPassword": "",
-      "content": "json-server를 배워봅시다.",
-      "date": "date"
+      "id": "adbb7987-947f-41cb-98e3-e96f50ab0453",
+      "title": "commentList 개발",
+      "content": "commentList 기능 제작 후 깃에 풀리퀘스트 ",
+      "userId": "성태영",
+      "userPw": "1",
+      "startDate": "2022. 12. 27.",
+      "doneDate": "2022-12-28",
+      "schedule": "진행중"
+    },
+    {
+      "id": "725e5c6d-a38d-4624-97c8-ff1a19f310ce",
+      "title": "프로젝트 발표 자료 준비",
+      "content": "프로젝트 발표 자료 준비",
+      "userId": "이재성",
+      "userPw": "1",
+      "startDate": "2022. 12. 27.",
+      "doneDate": "2022-12-28",
+      "schedule": "시작예정"
     }
   ]
 }
