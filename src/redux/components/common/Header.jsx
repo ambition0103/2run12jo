@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-
+import { Link } from 'react-router-dom';
 function Header() {
   return (
     <StyleHeader>
       <h1>
-        <span className="icon">📚</span> <span>P</span>roject <span>A</span>pp
+        <Link to="/">
+          <span className="icon">📚</span> <span>P</span>roject <span>A</span>pp
+        </Link>
       </h1>
       <p>
         <span>안녕</span>하세요.
@@ -28,6 +30,11 @@ const StyleHeader = styled.header`
     .icon {
       font-size: 24px;
       vertical-align: middle;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
     }
   }
   > p {

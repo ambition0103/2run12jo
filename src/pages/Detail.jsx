@@ -6,7 +6,6 @@ function Detail() {
   return (
     <div>
       <DetailMain />
-     
     </div>
   );
 }

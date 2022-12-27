@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import "react-datepicker/dist/react-datepicker.css";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { useState } from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
 // import { ko } from "date-fns/esm/locale";
-import { useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { __getTodos } from "../../modules/todosSlice";
-import DetailScheduleEdit from "../DetailPage/DetailScheduleEdit";
-import Comment from "../comments/Comment";
+import { useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { __getTodos } from '../../modules/todosSlice';
+import DetailScheduleEdit from '../DetailPage/DetailScheduleEdit';
+import Comment from '../comments/Comment';
 
 function DetailMain() {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ function DetailMain() {
 
   // useNavigate로 전달한 props(todo의 id)
   const location = useLocation();
-  const todoId = location.pathname.split("/")[1];
+  const todoId = location.pathname.split('/')[1];
 
   // 상세페이지 제목을 받아오려면 todos를 일단 가져오자.
   const { todos } = useSelector((state) => state.allTodos);
@@ -56,19 +56,19 @@ function DetailMain() {
   };
 
   // 내용
-  const [editContent, setEditContent] = useState("");
+  const [editContent, setEditContent] = useState('');
   const editContentInputChangeHandler = (event) => {
     setEditContent(event.target.value);
   };
 
   //제목
-  const [editTitle, setEdtitTitle] = useState("");
+  const [editTitle, setEdtitTitle] = useState('');
   const editTitleChangeHandler = (e) => {
     setEdtitTitle(e.target.value);
   };
 
   //완료일
-  const [editDoneDate, setEdtitDoneDate] = useState("");
+  const [editDoneDate, setEdtitDoneDate] = useState('');
   const editDoneDateChangeHandler = (e) => {
     setEdtitDoneDate(e.target.value);
   };
@@ -91,7 +91,7 @@ function DetailMain() {
           {/* 담당자 */}
           <StyledDetailInformationSubBox>
             <StyledDetailInformationStaticText>
-              담당자{" "}
+              담당자{' '}
             </StyledDetailInformationStaticText>
             <StyledDetailTitleText
               placeholder={todosUserName}
@@ -103,7 +103,7 @@ function DetailMain() {
           {/* 진행상태 */}
           <StyledDetailInformationSubBox>
             <StyledDetailInformationStaticText>
-              진행 상태{" "}
+              진행 상태{' '}
             </StyledDetailInformationStaticText>
 
             <StyledDetailInformationVariableText
@@ -116,7 +116,7 @@ function DetailMain() {
           {/* 생성일시 */}
           <StyledDetailInformationSubBox>
             <StyledDetailInformationStaticText>
-              생성 일시{" "}
+              생성 일시{' '}
             </StyledDetailInformationStaticText>
 
             <StyledDetailTitleText placeholder={todosStartDate} />
@@ -125,7 +125,7 @@ function DetailMain() {
           {/* 마감일시 */}
           <StyledDetailInformationSubBox>
             <StyledDetailInformationStaticText>
-              마감 일시{" "}
+              마감 일시{' '}
             </StyledDetailInformationStaticText>
             <StyledDetailTitleText
               placeholder={todosDoneDate}
@@ -158,7 +158,16 @@ export default DetailMain;
 
 //CSS
 
-const StyledDetailMain = styled.div``;
+const StyledDetailMain = styled.div`
+  width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+`;
 
 const StyledDetailTitleDivBox = styled.div``;
 
