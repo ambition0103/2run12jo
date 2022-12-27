@@ -70,5 +70,16 @@
       "doneDate": "2022-12-28",
       "schedule": "시작예정"
     }
+  ],
+  "commentLists": [
+    {},
+    {
+      "id": "xrQ_luBbMifY_0QRf9yrG",
+      "postId": "d80fc6c7-86fd-4545-b3f7-fb7424b93f43",
+      "comment": "나는...",
+      "userId": "바보야..",
+      "userPw": "123",
+      "date": "2022. 12. 27."
+    }
   ]
 }

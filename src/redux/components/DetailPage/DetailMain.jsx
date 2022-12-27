@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { __getTodos } from "../../modules/todosSlice";
 import DetailScheduleEdit from "../DetailPage/DetailScheduleEdit";
+import Comment from "../comments/Comment";
 
 function DetailMain() {
   const dispatch = useDispatch();
@@ -148,6 +149,7 @@ function DetailMain() {
           ></textarea>
         </StyledDetailContentsDivBox>
       </form>
+      <Comment />
     </StyledDetailMain>
   );
 }

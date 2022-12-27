@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import CommentList from './CommentList';
-import { useDispatch, useSelector } from 'react-redux';
-import { __getComment } from '../../modules/commentSlice';
+import React, { useEffect } from "react";
+import CommentList from "./CommentList";
+import { useDispatch, useSelector } from "react-redux";
+import { __getComment } from "../../modules/commentSlice";
 
 function CommmentView({ commentId }) {
   const dispatch = useDispatch();
