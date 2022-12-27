@@ -37,7 +37,6 @@ export const __postTodos = createAsyncThunk(
 export const __modifySchedule = createAsyncThunk(
   "modifyschedule",
   async (payload, thunkAPI) => {
-    console.log(payload);
     try {
       await axios.patch(`http://localhost:3001/todos/${payload.id}`, {
         schedule: payload.schedule,

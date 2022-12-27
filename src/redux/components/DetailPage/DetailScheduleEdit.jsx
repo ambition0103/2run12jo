@@ -19,16 +19,12 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
   };
 
   const modifyScheduleButtonClick = () => {
-    dispatch(__modifySchedule({ schedule: todoSchedule, id: todoId }));
-
-    // if (window.confirm("진행 상태를 변경하시겠습니까?")) {
-    // }
+    if (window.confirm("진행 상태를 변경하시겠습니까?")) {
+      dispatch(__modifySchedule({ schedule: todoSchedule, id: todoId }));
+    }
+    window.location.reload();
     // setButtonSwitch(false);
   };
-
-  // useEffect(() => {
-  //   dispatch(__modifySchedule());
-  // }, [modifyScheduleButtonClick]);
 
   return (
     <div className="check-box">
@@ -75,7 +71,9 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
         />
         완료
       </label>
-      <button onClick={modifyScheduleButtonClick}>수정</button>
+      <button type="button" onClick={modifyScheduleButtonClick}>
+        수정
+      </button>
     </div>
   );
 };

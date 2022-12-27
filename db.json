@@ -2,13 +2,13 @@
   "todos": [
     {
       "id": "e8221cce-3a5a-4d09-a151-0602f2b38285",
-      "title": "",
-      "content": "",
+      "title": "프로젝트 너무 재밌어요!",
+      "content": "너무 힘드네요!",
       "userId": "성태영,이재성",
       "userPw": "1",
       "startDate": "2022. 12. 27.",
-      "doneDate": "",
-      "schedule": "진행중"
+      "doneDate": "2022. 12. 30",
+      "schedule": "완료"
     },
     {
       "id": "d80fc6c7-86fd-4545-b3f7-fb7424b93f43",
@@ -28,7 +28,7 @@
       "userPw": "1",
       "startDate": "2022. 12. 27.",
       "doneDate": "2022-12-28",
-      "schedule": "진행중"
+      "schedule": "시작예정"
     },
     {
       "id": "b72b355f-410a-49d1-86fa-109d2b58b40a",
@@ -62,13 +62,13 @@
     },
     {
       "id": "725e5c6d-a38d-4624-97c8-ff1a19f310ce",
-      "title": "",
-      "content": "",
+      "title": "어쩌다보니 9시가 다 됐네",
+      "content": "프로젝트 너무 재밌네요!",
       "userId": "이재성",
       "userPw": "1",
       "startDate": "2022. 12. 27.",
-      "doneDate": "",
-      "schedule": "시작전"
+      "doneDate": "2022. 12. 30",
+      "schedule": "완료"
     }
   ],
   "commentLists": [
