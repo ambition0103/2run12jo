@@ -5,7 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // import { ko } from "date-fns/esm/locale";
 import { useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { __getTodos } from "../../modules/todosSlice";
+import { __getTodos, __modifyEdittedTodo } from "../../modules/todosSlice";
 import DetailScheduleEdit from "../DetailPage/DetailScheduleEdit";
 import Comment from "../comments/Comment";
 
@@ -41,7 +41,7 @@ function DetailMain() {
   const todosDoneDate = sameIdTodos && sameIdTodos.doneDate;
   const todosTitle = sameIdTodos && sameIdTodos.title;
   const todosContent = sameIdTodos && sameIdTodos.content;
-  const todosUserName = sameIdTodos && sameIdTodos.userName;
+  const todosUserId = sameIdTodos && sameIdTodos.userId;
 
   // 생성일시
   // const [startDate, setStartDate] = useState(new Date());
@@ -73,14 +73,29 @@ function DetailMain() {
     setEdtitDoneDate(e.target.value);
   };
 
-  const onSubmitModifiedEditValue = () => {};
+  const onSubmitEdittedTodo = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      __modifyEdittedTodo({
+        id: todoId,
+        title: editTitle,
+        content: editContent,
+        doneDate: editDoneDate,
+      })
+    );
+  };
 
   return (
     <StyledDetailMain>
       {/* 제목 */}
-      <form onSubmit={onSubmitModifiedEditValue}>
+      <form onSubmit={onSubmitEdittedTodo}>
         <StyledDetailTitleDivBox>
-          <StyledDetailTitleText placeholder={todosTitle} />
+          <StyledDetailTitleText
+            placeholder={todosTitle}
+            value={editTitle}
+            onChange={editTitleChangeHandler}
+          />
           {/* 컴포넌트 내부에서 map을 통해 새로운 컴포넌트가 아닌 다른 데이터를 return하면
           Array.prototype.map() expects a value to be returned at the end of arrow function  array-callback-return
           위 오류가 발생할 확률이 증가한다. 그래서 &&연산자를 통해 내가 원하는 값을 텍스트로 출력. */}
@@ -93,11 +108,7 @@ function DetailMain() {
             <StyledDetailInformationStaticText>
               담당자{" "}
             </StyledDetailInformationStaticText>
-            <StyledDetailTitleText
-              placeholder={todosUserName}
-              value={editTitle}
-              onChange={editTitleChangeHandler}
-            />
+            {todosUserId}
           </StyledDetailInformationSubBox>
 
           {/* 진행상태 */}
@@ -109,7 +120,15 @@ function DetailMain() {
             <StyledDetailInformationVariableText
               onClick={openScheduleEditButton}
             >
-              {buttonSwitch ? <DetailScheduleEdit /> : todosSchedule}
+              {buttonSwitch ? (
+                <DetailScheduleEdit
+                  todoId={todoId}
+                  buttonSwitch={buttonSwitch}
+                  setButtonSwitch={setButtonSwitch}
+                />
+              ) : (
+                todosSchedule
+              )}
             </StyledDetailInformationVariableText>
           </StyledDetailInformationSubBox>
 
@@ -139,7 +158,6 @@ function DetailMain() {
         <StyledDetailContentsDivBox>
           <StyledDetailContentsEditButtonBox>
             <StyledDetailContentsStatic>내용</StyledDetailContentsStatic>
-            <StyledDetailEditButton>수정</StyledDetailEditButton>
           </StyledDetailContentsEditButtonBox>
 
           <textarea

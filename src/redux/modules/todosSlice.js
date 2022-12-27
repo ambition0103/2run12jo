@@ -1,11 +1,6 @@
 import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// 관리해야 할 state
-//. todos = [{id, title, content, 등등},{}] 에 관한 state
-// 위에 todos만 관리해줘도 안에 있는 데이터 접근이 다 가능함.
-// 위 todos를 기반으로 reducer 다 만들면 됨.
-
 const initialState = {
   todos: [],
   isLoading: false,
@@ -42,9 +37,27 @@ export const __postTodos = createAsyncThunk(
 export const __modifySchedule = createAsyncThunk(
   "modifyschedule",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      await axios.patch(`http://localhost:3001/commentLists/${payload.id}`, {
+      await axios.patch(`http://localhost:3001/todos/${payload.id}`, {
         schedule: payload.schedule,
+      });
+      return thunkAPI.fulfillWithValue(payload);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __modifyEdittedTodo = createAsyncThunk(
+  "modifyEdittedTodo",
+  async (payload, thunkAPI) => {
+    console.log("payload", payload);
+    try {
+      await axios.patch(`http://localhost:3001/todos/${payload.id}`, {
+        title: payload.title,
+        content: payload.content,
+        doneDate: payload.doneDate,
       });
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
@@ -96,7 +109,8 @@ const todosSlice = createSlice({
       state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
       state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
     },
-    //modifyschedule
+
+    // modifyschedule
     [__modifySchedule.pending]: (state) => {
       state.isLoading = true;
     },
@@ -111,6 +125,30 @@ const todosSlice = createSlice({
       });
     },
     [__modifySchedule.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+
+    //modifyTodo
+    [__modifyEdittedTodo.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [__modifyEdittedTodo.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.todos = current(state).todos.map((item) => {
+        if (item.id === action.payload.id) {
+          return {
+            ...item,
+            title: action.payload.title,
+            content: action.payload.content,
+            doneDate: action.payload.doneDate,
+          };
+        } else {
+          return item;
+        }
+      });
+    },
+    [__modifyEdittedTodo.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
