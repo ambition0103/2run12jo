@@ -3,7 +3,7 @@ import CommentList from './CommentList';
 import { useDispatch, useSelector } from 'react-redux';
 import { __getComment } from '../../modules/commentSlice';
 
-function CommmentView() {
+function CommmentView({ commentId }) {
   const dispatch = useDispatch();
 
   const { isLoading, error, commentLists } = useSelector(
@@ -14,7 +14,6 @@ function CommmentView() {
     dispatch(__getComment());
   }, [dispatch]);
 
-  
   if (isLoading) {
     return <div>로딩중...</div>;
   }
@@ -23,9 +22,11 @@ function CommmentView() {
     return <div>{error.message}</div>;
   }
 
+  const idValue = commentLists.filter((item) => commentId === item.postId);
+
   return (
     <div>
-      {commentLists.map((item) => {
+      {idValue.map((item) => {
         return <CommentList item={item} key={item?.id} />;
       })}
     </div>

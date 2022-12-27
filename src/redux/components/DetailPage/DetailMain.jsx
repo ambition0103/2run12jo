@@ -1,107 +1,134 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useState } from 'react';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { ko } from 'date-fns/esm/locale';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { __getTodos } from '../../modules/todosSlice';
-
-// import {v4 as uuidv4} from 'uuid';
+import { __getTodos, __modifyEdittedTodo } from '../../modules/todosSlice';
+import DetailScheduleEdit from '../DetailPage/DetailScheduleEdit';
+import Comment from '../comments/Comment';
 
 function DetailMain() {
   const dispatch = useDispatch();
+
+  // useNavigate로 전달한 props(todo의 id)
+  const location = useLocation();
+  const todoId = location.pathname.split('/')[1];
+
+  // 상세페이지 제목을 받아오려면 todos를 일단 가져오자.
+  const { todos } = useSelector((state) => state.allTodos);
+
+  //. todoId와 같은 id를 가진 todo를 filter를 통해 변수에 할당하자.
+  const sameIdTodos = todos.filter((item) => item.id === todoId)[0];
+
+  const todosSchedule = sameIdTodos && sameIdTodos.schedule;
+  const todosStartDate = sameIdTodos && sameIdTodos.startDate;
+  const todosDoneDate = sameIdTodos && sameIdTodos.doneDate;
+  const todosTitle = sameIdTodos && sameIdTodos.title;
+  const todosContent = sameIdTodos && sameIdTodos.content;
+  const todosUserId = sameIdTodos && sameIdTodos.userId;
+
+  // 마감 일시 수정 스위치
+  const [buttonSwitch, setButtonSwitch] = useState(false);
+  const openScheduleEditButton = () => {
+    setButtonSwitch(true);
+  };
+
+  // 내용
+  const [editContent, setEditContent] = useState('');
+  const editContentInputChangeHandler = (event) => {
+    setEditContent(event.target.value);
+  };
+
+  //제목
+  const [editTitle, setEdtitTitle] = useState('');
+  const editTitleChangeHandler = (e) => {
+    setEdtitTitle(e.target.value);
+  };
+
+  //완료일
+  const [editDoneDate, setEdtitDoneDate] = useState('');
+  const editDoneDateChangeHandler = (e) => {
+    setEdtitDoneDate(e.target.value);
+  };
+
+  const onSubmitEdittedTodo = (e) => {
+    e.preventDefault();
+
+    dispatch(
+      __modifyEdittedTodo({
+        id: todoId,
+        title: editTitle,
+        content: editContent,
+        doneDate: editDoneDate,
+      })
+    );
+  };
 
   useEffect(() => {
     dispatch(__getTodos());
   }, [dispatch]);
 
-  // 생성일시
-  const [startDate, setStartDate] = useState(new Date());
-
-  // 마감일시
-  const [completionDate, setCompletionDate] = useState(new Date());
-
-  // 내용
-  const [text, setText] = useState('');
-  const textInput = (event) => {
-    setText(event.target.value);
-  };
-
-  // useNavigate로 전달한 props(todo의 id)
-  const location = useLocation();
-  const todoId = location.pathname.split('/')[1];
-  console.log('todoId', todoId);
-
-  // 상세페이지 제목을 받아오려면 todos를 들고와서 map을 돌리자.
-  const { todos } = useSelector((state) => state.allTodos);
-  console.log('todos', todos);
   return (
-    <div>
-      {/* 제목 */}
-      <TitleBox>
-        {/* {todos.map((item) => {
-          if (item.id === todoId) {
-            return item.title;
-          }
-        })} */}
-      </TitleBox>
+    <StyledDetailMain>
+      <form onSubmit={onSubmitEdittedTodo}>
+        {/* 제목 */}
+        <StyleContent className="title">
+          <input
+            placeholder={todosTitle}
+            value={editTitle}
+            onChange={editTitleChangeHandler}
+          />
+        </StyleContent>
 
-      <InformationBox>
         {/* 담당자 */}
-        <Information>
-          담당자{' '}
-          {/* {todos.map((item) => {
-            if (item.id === todoId) {
-              return item.userName;
-            }
-          })} */}
-        </Information>
+        <StyleContent>
+          <ConentTitle>담당자 </ConentTitle>
+          <span>{todosUserId}</span>
+        </StyleContent>
 
         {/* 진행상태 */}
-        <Information>
-          진행 상태{' '}
-          <StyledInput>
-            <input />
-          </StyledInput>
-        </Information>
+        <StyleContent>
+          <ConentTitle>진행 상태 </ConentTitle>
 
-        {/* 생성일시 */}
-        <Information>
-          생성 일시{' '}
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-            locale={ko} // 한글로 변경
-            dateFormat="yyyy.MM.dd (eee)" // 시간 포맷 변경
-            showPopperArrow={false} // 화살표 변경
-            minDate={new Date()} // 오늘 날짜 전은 선택 못하게
-          />
-        </Information>
+          <div onClick={openScheduleEditButton}>
+            {buttonSwitch ? (
+              <DetailScheduleEdit
+                todoId={todoId}
+                buttonSwitch={buttonSwitch}
+                setButtonSwitch={setButtonSwitch}
+              />
+            ) : (
+              todosSchedule
+            )}
+          </div>
+        </StyleContent>
 
         {/* 마감일시 */}
-        <Information>
-          마감 일시{' '}
-          <DatePicker
-            selected={completionDate}
-            onChange={(date) => setCompletionDate(date)}
-            locale={ko} // 한글로 변경
-            dateFormat="yyyy.MM.dd (eee)" // 시간 포맷 변경
-            showPopperArrow={false} // 화살표 변경
-            minDate={new Date()} // 오늘 날짜 전은 선택 못하게
+        <StyleContent>
+          <ConentTitle>마감 일시 </ConentTitle>
+          <input
+            placeholder={todosDoneDate}
+            value={editDoneDate}
+            onChange={editDoneDateChangeHandler}
+            type="date"
           />
-        </Information>
-      </InformationBox>
+        </StyleContent>
 
-      {/* 내용 */}
-      <form>
-        <textarea value={text} onChange={textInput}></textarea>
-        <button>추가하기</button>
+        {/* 내용 */}
+
+        <StyleText>
+          <ConentTitle>내용</ConentTitle>
+
+          <textarea
+            placeholder={todosContent}
+            value={editContent}
+            onChange={editContentInputChangeHandler}
+          ></textarea>
+        </StyleText>
+
+        <button>수정하기</button>
       </form>
-
-      <div>{text}</div>
-    </div>
+      <Comment />
+    </StyledDetailMain>
   );
 }
 
@@ -109,25 +136,59 @@ export default DetailMain;
 
 //CSS
 
-const TitleBox = styled.div`
-  margin-left: 150px;
-  font-size: 50px;
-  margin-top: 150px;
+const StyledDetailMain = styled.div`
+  width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 1200px) {
+    width: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  .title {
+    margin-bottom: 1em;
+    > input {
+      border: none;
+      font-size: 24px;
+      color: #000;
+      outline: none;
+
+      ::placeholder {
+        font-size: 24px;
+        color: #000;
+      }
+    }
+  }
 `;
 
-const InformationBox = styled.div`
-  margin-top: 50px;
-`;
-
-const Information = styled.div`
+const StyleContent = styled.div`
   display: flex;
-  justify-content: left;
-  justify-items: center;
-  margin-left: 150px;
+  margin-bottom: 0.5em;
+
+  > input {
+    display: block;
+    flex: 1;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+`;
+const ConentTitle = styled.div`
+  font-weight: 700;
+  flex: 1;
 `;
 
-const StyledInput = styled.div`
-  margin-left: 50px;
-  display: flex;
-  justify-content: space-between;
+const StyleText = styled.div`
+  margin: 1.5em 0;
+  border-top: 1px solid #ddd;
+  padding: 2em 0;
+
+  > textarea {
+    width: 100%;
+    border: none;
+    margin-top: 1em;
+    height: 600px;
+    border-radius: 4px;
+    background: #ddd;
+  }
 `;

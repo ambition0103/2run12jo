@@ -11,7 +11,7 @@ const TodoForm = ({ setModalSwitch, modalSwitch }) => {
   // 일정추가 form input
   const [todoValue, setTodoValue] = useState({
     id: uuidv4(),
-    schedule: ['시작전', '시작예정', '진행중', '완료'],
+    schedule: '시작전',
     title: '',
     content: '',
     userId: '',
@@ -91,75 +91,76 @@ const TodoForm = ({ setModalSwitch, modalSwitch }) => {
         <h3 className="form-title">일정추가</h3>
         <form onSubmit={addTodoClick}>
           <StyleInputWrap>
-            <div className="check-box">
-              <label htmlFor="schedule-list0">
-                <input
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    setTodoValue({
-                      ...todoValue,
-                      schedule: value,
-                    });
-                  }}
-                  type="radio"
-                  id="schedule-list0"
-                  name="schedule-list"
-                  value={'시작전'}
-                  //   checked
-                />
+            <StyleRadio className="check-box">
+              <input
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setTodoValue({
+                    ...todoValue,
+                    schedule: value,
+                  });
+                }}
+                type="radio"
+                id="schedule-list0"
+                name="schedule-list"
+                value={'시작전'}
+                defaultChecked
+              />
+              <label htmlFor="schedule-list0" className="start">
+                <span className="pointer" />
                 시작전
               </label>
-              <label htmlFor="schedule-list1">
-                <input
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    setTodoValue({
-                      ...todoValue,
-                      schedule: value,
-                    });
-                  }}
-                  type="radio"
-                  id="schedule-list1"
-                  name="schedule-list"
-                  value={'시작예정'}
-                />
+              <input
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setTodoValue({
+                    ...todoValue,
+                    schedule: value,
+                  });
+                }}
+                type="radio"
+                id="schedule-list1"
+                name="schedule-list"
+                value={'시작예정'}
+              />
+              <label htmlFor="schedule-list1" className="planning">
+                <span className="pointer" />
                 시작예정
               </label>
-
-              <label htmlFor="schedule-list2">
-                <input
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    setTodoValue({
-                      ...todoValue,
-                      schedule: value,
-                    });
-                  }}
-                  type="radio"
-                  id="schedule-list2"
-                  name="schedule-list"
-                  value={'진행중'}
-                />
+              <input
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setTodoValue({
+                    ...todoValue,
+                    schedule: value,
+                  });
+                }}
+                type="radio"
+                id="schedule-list2"
+                name="schedule-list"
+                value={'진행중'}
+              />
+              <label htmlFor="schedule-list2" className="ongoing">
+                <span className="pointer" />
                 진행중
               </label>
-
-              <label htmlFor="schedule-list3">
-                <input
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    setTodoValue({
-                      ...todoValue,
-                      schedule: value,
-                    });
-                  }}
-                  type="radio"
-                  id="schedule-list3"
-                  name="schedule-list"
-                  value={'완료'}
-                />
-                완료
+              <input
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setTodoValue({
+                    ...todoValue,
+                    schedule: value,
+                  });
+                }}
+                type="radio"
+                id="schedule-list3"
+                name="schedule-list"
+                value={'완료'}
+              />
+              <label htmlFor="schedule-list3" className="completion">
+                <span className="pointer" />완 료
               </label>
-            </div>
+            </StyleRadio>
           </StyleInputWrap>
 
           <StyleInputWrap>
@@ -294,6 +295,7 @@ const StyleFlex = styled.div`
 const PopupWrapper = styled.div`
   position: fixed;
   top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -302,10 +304,12 @@ const PopupWrapper = styled.div`
   padding: 3em 0;
   background-color: rgba(0, 0, 0, 0.5);
 `;
+
 const StyleTodoForm = styled.div`
   width: 500px;
   padding: 24px;
   background-color: #fff;
+  border-radius: 8px;
 
   .form-title {
     font-size: 24px;
@@ -328,10 +332,16 @@ const StyleInputWrap = styled.div`
   textarea {
     width: 100%;
     box-sizing: border-box;
+    border-color: #ddd;
+    border-radius: 4px;
+    padding: 1em;
+    outline: none;
   }
 
   > input {
     height: 30px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
 
     [type='radio'] {
       cursor: pointer;
@@ -342,6 +352,75 @@ const StyleInputWrap = styled.div`
     resize: none;
   }
 `;
+
+const StyleRadio = styled.div`
+  input[type='radio'] {
+    display: none;
+  }
+  .pointer {
+    display: inline-block;
+    margin-right: 4px;
+    border-radius: 100%;
+    width: 8px;
+    height: 8px;
+    background-color: red;
+  }
+
+  input[type='radio']:checked + label {
+    border: 2px solid #333;
+
+    &.start {
+      border-color: #ff5e5e;
+    }
+    &.planning {
+      border-color: #ff9900;
+    }
+    &.ongoing {
+      border-color: #00f846;
+    }
+    &.completion {
+      border-color: #343434;
+    }
+  }
+
+  input[type='radio'] + label {
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    padding: 0.4em 1.4em;
+    margin-right: 8px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 13px;
+
+    &.start {
+      background-color: #ffdfdf;
+      .pointer {
+        background-color: #ff9999;
+      }
+    }
+    &.planning {
+      background-color: #ffdeae;
+      .pointer {
+        background-color: orange;
+      }
+    }
+    &.ongoing {
+      background-color: #a3f8bb;
+      .pointer {
+        background-color: #27ae60;
+      }
+    }
+    &.completion {
+      background-color: #d4d4d4;
+      .pointer {
+        background-color: #828282;
+      }
+    }
+  }
+`;
+
 const StyleButton = styled.div`
   display: flex;
   justify-content: flex-end;

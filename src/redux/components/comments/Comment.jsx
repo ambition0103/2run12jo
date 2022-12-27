@@ -2,12 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import CommentView from './CommentView';
 import CommentWrite from './CommentWrite';
+import { useLocation } from 'react-router-dom';
 
 function Comment() {
+  const location = useLocation();
+  const commentId = location && location.pathname.split('/')[1];
+
   return (
     <StyleCommentWrap>
-      <CommentWrite />
-      <CommentView />
+      <CommentWrite commentId={commentId} />
+      <CommentView commentId={commentId} />
     </StyleCommentWrap>
   );
 }

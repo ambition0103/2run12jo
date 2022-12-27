@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import axios from "axios";
 
 //initialState
 const initialState = {
@@ -10,10 +10,10 @@ const initialState = {
 
 //Thunk 함수
 export const __getComment = createAsyncThunk(
-  'getComment',
+  "getComment",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get('http://localhost:3001/commentLists');
+      const data = await axios.get("http://localhost:3001/commentLists");
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       console.log(error);
@@ -23,10 +23,11 @@ export const __getComment = createAsyncThunk(
 );
 
 export const __addComment = createAsyncThunk(
-  'addComment',
+  "addComment",
   async (payload, thunkAPI) => {
     try {
-      await axios.post('http://localhost:3001/commentLists', payload);
+      console.log("payload", payload);
+      await axios.post("http://localhost:3001/commentLists", payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -35,7 +36,7 @@ export const __addComment = createAsyncThunk(
 );
 
 export const __deleteComment = createAsyncThunk(
-  'deleteComment',
+  "deleteComment",
   async (payload, thunkAPI) => {
     try {
       await axios.delete(`http://localhost:3001/commentLists/${payload}`);
@@ -47,7 +48,7 @@ export const __deleteComment = createAsyncThunk(
 );
 
 export const __modifyComment = createAsyncThunk(
-  'modifycomment',
+  "modifycomment",
   async (payload, thunkAPI) => {
     try {
       await axios.patch(`http://localhost:3001/commentLists/${payload.id}`, {
@@ -62,7 +63,7 @@ export const __modifyComment = createAsyncThunk(
 );
 
 const commentSlice = createSlice({
-  name: 'commentList',
+  name: "commentList",
   initialState,
   extraReducers: {
     [__getComment.pending]: (state) => {
@@ -111,7 +112,6 @@ const commentSlice = createSlice({
     },
     [__modifyComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-
       state.commentLists = current(state).commentLists.map((comment) => {
         if (comment.id === action.payload.id) {
           return { ...comment, comment: action.payload.comment };
