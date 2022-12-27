@@ -19,9 +19,10 @@ const DetailScheduleEdit = ({ todoId, buttonSwitch, setButtonSwitch }) => {
   };
 
   const modifyScheduleButtonClick = () => {
-    if (window.confirm('진행 상태를 변경하시겠습니까?')) {
-      dispatch(__modifySchedule({ schedule: todoSchedule, id: todoId }));
-    }
+    // if (window.confirm('진행 상태를 변경하시겠습니까?')) {
+
+    // }
+    dispatch(__modifySchedule({ schedule: todoSchedule, id: todoId }));
     window.location.reload();
     // setButtonSwitch(false);
   };

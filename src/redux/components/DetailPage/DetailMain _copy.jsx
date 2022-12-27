@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { __getTodos, __modifyEdittedTodo } from '../../modules/todosSlice';
-import DetailScheduleEdit from '../DetailPage/DetailScheduleEdit';
+import DetailScheduleEdit from './DetailScheduleEdit';
 import Comment from '../comments/Comment';
 import Button from '../button/Button';
 
@@ -31,7 +31,7 @@ function DetailMain() {
   // 진행 상태 수정 스위치
   const [buttonSwitch, setButtonSwitch] = useState(false);
   const openScheduleEditButton = () => {
-    setButtonSwitch((prev) => !buttonSwitch);
+    setButtonSwitch(true);
   };
 
   const [editValue, setEditValue] = useState({
@@ -39,11 +39,32 @@ function DetailMain() {
     editTitle: todosTitle,
     editDoneDate: todosDoneDate,
     editUserId: todosUserId,
-    editSchedule: todosSchedule,
   });
 
-  const { editContent, editTitle, editDoneDate, editUserId, editSchedule } =
-    editValue;
+  const { editContent, editTitle, editDoneDate, editUserId } = editValue;
+  // // 내용
+  // const [editContent, setEditContent] = useState('');
+  // const editContentInputChangeHandler = (event) => {
+  //   setEditContent(event.target.value);
+  // };
+
+  // // 제목
+  // const [editTitle, setEdtitTitle] = useState('');
+  // const editTitleChangeHandler = (e) => {
+  //   setEdtitTitle(e.target.value);
+  // };
+
+  // // 완료일
+  // const [editDoneDate, setEdtitDoneDate] = useState('');
+  // const editDoneDateChangeHandler = (e) => {
+  //   setEdtitDoneDate(e.target.value);
+  // };
+
+  // // 작성자
+  // const [editUserId, setEditUserId] = useState('');
+  // const editUserIdChangeHandler = (e) => {
+  //   setEditUserId(e.target.value);
+  // };
 
   const onSubmitEdittedTodo = (e) => {
     e.preventDefault();
@@ -60,7 +81,6 @@ function DetailMain() {
           title: editTitle,
           content: editContent,
           doneDate: editDoneDate,
-          schedule: editSchedule,
         })
       );
 
@@ -70,7 +90,6 @@ function DetailMain() {
         editTitle: editTitle,
         editDoneDate: editDoneDate,
         editUserId: editUserId,
-        editSchedule: editSchedule,
       });
 
       window.confirm('수정이 완료되었습니다.');
@@ -82,7 +101,6 @@ function DetailMain() {
         editTitle: todosTitle,
         editDoneDate: todosDoneDate,
         editUserId: todosUserId,
-        editSchedule: todosSchedule,
       });
     }
   };
@@ -121,7 +139,6 @@ function DetailMain() {
             }}
           />
         </StyleContent>
-
         {/* 담당자 */}
         <StyleContent>
           <ConentTitle>담당자 </ConentTitle>
@@ -142,87 +159,17 @@ function DetailMain() {
         <StyleContent>
           <ConentTitle>진행 상태 </ConentTitle>
 
-          <StyleSchedule>
-            <p className="schedule-title" onClick={openScheduleEditButton}>
-              <span>{editSchedule ? editSchedule : todosSchedule}</span>
-            </p>
-
-            {buttonSwitch && (
-              <StyleRadio className="check-box">
-                <input
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    setEditValue({
-                      ...editValue,
-                      editSchedule: value,
-                    });
-                  }}
-                  type="radio"
-                  id="schedule-list0"
-                  name="schedule-list"
-                  value={'시작전'}
-                  defaultChecked
-                />
-                <label htmlFor="schedule-list0" className="start">
-                  <span className="pointer" />
-                  시작전
-                </label>
-
-                <input
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    setEditValue({
-                      ...editValue,
-                      editSchedule: value,
-                    });
-                  }}
-                  type="radio"
-                  id="schedule-list1"
-                  name="schedule-list"
-                  value={'시작예정'}
-                />
-                <label htmlFor="schedule-list1" className="planning">
-                  <span className="pointer" />
-                  시작예정
-                </label>
-
-                <input
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    setEditValue({
-                      ...editValue,
-                      editSchedule: value,
-                    });
-                  }}
-                  type="radio"
-                  id="schedule-list2"
-                  name="schedule-list"
-                  value={'진행중'}
-                />
-                <label htmlFor="schedule-list2" className="ongoing">
-                  <span className="pointer" />
-                  진행중
-                </label>
-
-                <input
-                  onChange={(e) => {
-                    const { value } = e.target;
-                    setEditValue({
-                      ...editValue,
-                      editSchedule: value,
-                    });
-                  }}
-                  type="radio"
-                  id="schedule-list3"
-                  name="schedule-list"
-                  value={'완료'}
-                />
-                <label htmlFor="schedule-list3" className="completion">
-                  <span className="pointer" />완 료
-                </label>
-              </StyleRadio>
+          <div onClick={openScheduleEditButton}>
+            {buttonSwitch ? (
+              <DetailScheduleEdit
+                todoId={todoId}
+                buttonSwitch={buttonSwitch}
+                setButtonSwitch={setButtonSwitch}
+              />
+            ) : (
+              todosSchedule
             )}
-          </StyleSchedule>
+          </div>
         </StyleContent>
 
         {/* 마감일시 */}
@@ -243,7 +190,7 @@ function DetailMain() {
         </StyleContent>
         {/* 내용 */}
         <StyleText>
-          <ConentTitle className="content-wrap">내용</ConentTitle>
+          <ConentTitle>내용</ConentTitle>
           <textarea
             placeholder={todosContent}
             value={editContent}
@@ -284,13 +231,11 @@ const StyledDetailMain = styled.div`
 
   .title {
     margin-bottom: 1em;
-
     > input {
       border: none;
       font-size: 24px;
       color: #000;
       outline: none;
-      text-align: left;
 
       ::placeholder {
         font-size: 24px;
@@ -302,14 +247,8 @@ const StyledDetailMain = styled.div`
 
 const StyleContent = styled.div`
   display: flex;
-  /* width: 80%; */
+  width: 80%;
   margin-bottom: 0.5em;
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-    width: 100%;
-    margin-bottom: 1em;
-  }
 
   .title {
     display: flex;
@@ -319,34 +258,20 @@ const StyleContent = styled.div`
     display: block;
     flex: 1;
     border: none;
+    border-bottom: 1px solid #ddd;
     outline: none;
-    font-size: 16px;
-    text-align: right;
-    color: #000;
-
-    ::placeholder {
-      color: #000;
-    }
   }
 `;
 
 const ConentTitle = styled.div`
   font-weight: 900;
   flex: 1;
-
-  @media (max-width: 600px) {
-    margin-bottom: 1em;
-  }
 `;
 
 const StyleText = styled.div`
   margin: 1.5em 0;
   border-top: 1px solid #ddd;
   padding: 2em 0;
-
-  .content-wrap {
-    font-size: 24px;
-  }
 
   > textarea {
     width: 100%;
@@ -362,103 +287,6 @@ const StyleText = styled.div`
     ::placeholder {
       font-size: 16px;
       color: #000;
-    }
-  }
-`;
-const StyleRadio = styled.div`
-  padding: 16px 0 16px;
-  cursor: pointer;
-
-  input[type='radio'] {
-    display: none;
-  }
-  .pointer {
-    display: inline-block;
-    margin-right: 4px;
-    border-radius: 100%;
-    width: 8px;
-    height: 8px;
-    background-color: red;
-  }
-
-  input[type='radio']:checked + label {
-    border: 2px solid #333;
-
-    &.start {
-      border-color: #ff5e5e;
-    }
-    &.planning {
-      border-color: #ff9900;
-    }
-    &.ongoing {
-      border-color: #00f846;
-    }
-    &.completion {
-      border-color: #343434;
-    }
-  }
-
-  input[type='radio'] + label {
-    border: 2px solid transparent;
-    box-sizing: border-box;
-    display: inline-block;
-    cursor: pointer;
-    padding: 0.4em 1.4em;
-    margin-right: 8px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 13px;
-
-    @media (max-width: 600px) {
-      margin-bottom: 1em;
-    }
-
-    &.start {
-      background-color: #ffdfdf;
-      .pointer {
-        background-color: #ff9999;
-      }
-    }
-    &.planning {
-      background-color: #ffdeae;
-      .pointer {
-        background-color: orange;
-      }
-    }
-    &.ongoing {
-      background-color: #a3f8bb;
-      .pointer {
-        background-color: #27ae60;
-      }
-    }
-    &.completion {
-      background-color: #d4d4d4;
-      .pointer {
-        background-color: #828282;
-      }
-    }
-  }
-`;
-
-const StyleSchedule = styled.div`
-  background-color: #ededed;
-  border-radius: 4px;
-  padding: 16px 16px 0;
-  width: 60%;
-  cursor: pointer;
-
-  @media (max-width: 600px) {
-    width: 100%;
-  }
-
-  .schedule-title {
-    padding: 0 4px 8px;
-    display: flex;
-    justify-content: flex-end;
-
-    > span {
-      font-weight: 900;
-      color: #3187f1;
     }
   }
 `;
