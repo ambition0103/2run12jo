@@ -165,7 +165,7 @@ const StyledDetailMain = styled.div`
   @media (max-width: 1200px) {
     width: 100%;
     padding: 24px;
-    box-sizing: border-box;
+    box-sizing: ;
   }
 `;
 
