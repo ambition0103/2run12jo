@@ -1,19 +1,18 @@
-import { React, useState } from 'react';
-import { v4 as uuid } from 'uuid';
-import axios from 'axios';
-
+import { React, useState } from "react";
+import { v4 as uuid } from "uuid";
+import axios from "axios";
 
 const AddForm = ({ setTodos }) => {
-  const [titleValue, setTitleValue] = useState('');
-  const [contentValue, setContentValue] = useState('');
-  const [userIdValue, setUserIdValue] = useState('');
-  const [userPw, setUserPw] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [schedule, setSchedule] = useState('');
+  const [titleValue, setTitleValue] = useState("");
+  const [contentValue, setContentValue] = useState("");
+  const [userIdValue, setUserIdValue] = useState("");
+  const [userPw, setUserPw] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [schedule, setSchedule] = useState("");
 
   //api
   const fetchTodos = async () => {
-    const { data } = await axios.get('http://localhost:3001/todos');
+    const { data } = await axios.get(`${process.env.REACT_APP_TODOS}/todos`);
     setTodos(data);
   };
 
@@ -59,28 +58,28 @@ const AddForm = ({ setTodos }) => {
 
     // 입력값 없을 때 작성X 알림
     if (!title) {
-      alert('일정제목을 입력해주세요!');
-      setTitleValue('');
+      alert("일정제목을 입력해주세요!");
+      setTitleValue("");
       return;
     }
     if (!content) {
-      alert('일정내용을 입력해주세요!');
-      setContentValue('');
+      alert("일정내용을 입력해주세요!");
+      setContentValue("");
       return;
     }
     if (!userId) {
-      alert('담당자를 입력해주세요!');
-      setUserIdValue('');
+      alert("담당자를 입력해주세요!");
+      setUserIdValue("");
       return;
     }
     if (!userPw) {
-      alert('암호를 입력해주세요!');
-      setUserPw('');
+      alert("암호를 입력해주세요!");
+      setUserPw("");
       return;
     }
     if (!schedule) {
-      alert('진행정도를 체크해주세요!');
-      setSchedule('');
+      alert("진행정도를 체크해주세요!");
+      setSchedule("");
       return;
     }
 
@@ -105,12 +104,12 @@ const AddForm = ({ setTodos }) => {
     // setTodos((prev) => {
     //   return [...prev, newTodo];
     // });
-    setTitleValue('');
-    setContentValue('');
-    setUserIdValue('');
-    setUserPw('');
-    setStartDate('');
-    setSchedule('');
+    setTitleValue("");
+    setContentValue("");
+    setUserIdValue("");
+    setUserPw("");
+    setStartDate("");
+    setSchedule("");
   };
 
   return (
