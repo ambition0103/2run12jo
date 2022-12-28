@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
   todos: [],
@@ -10,10 +10,10 @@ const initialState = {
 // 서버와 데이터 통신
 // GET
 export const __getTodos = createAsyncThunk(
-  "getTodos",
+  'getTodos',
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get("http://localhost:3001/todos");
+      const data = await axios.get('http://localhost:3001/todos');
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -23,10 +23,10 @@ export const __getTodos = createAsyncThunk(
 
 // POST
 export const __postTodos = createAsyncThunk(
-  "addTodos",
+  'addTodos',
   async (payload, thunkAPI) => {
     try {
-      await axios.post("http://localhost:3001/todos", payload);
+      await axios.post('http://localhost:3001/todos', payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -35,7 +35,7 @@ export const __postTodos = createAsyncThunk(
 );
 
 export const __modifySchedule = createAsyncThunk(
-  "modifyschedule",
+  'modifyschedule',
   async (payload, thunkAPI) => {
     console.log(payload);
     try {
@@ -50,7 +50,7 @@ export const __modifySchedule = createAsyncThunk(
 );
 
 export const __modifyEdittedTodo = createAsyncThunk(
-  "modifyEdittedTodo",
+  'modifyEdittedTodo',
   async (payload, thunkAPI) => {
     try {
       await axios.patch(`http://localhost:3001/todos/${payload.id}`, {
@@ -58,6 +58,7 @@ export const __modifyEdittedTodo = createAsyncThunk(
         title: payload.title,
         content: payload.content,
         doneDate: payload.doneDate,
+        schedule: payload.schedule,
       });
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
@@ -68,7 +69,7 @@ export const __modifyEdittedTodo = createAsyncThunk(
 
 //삭제
 export const __deleteTodos = createAsyncThunk(
-  "deleteTodos",
+  'deleteTodos',
   async (payload, thunkAPI) => {
     try {
       await axios.delete(`http://localhost:3001/todos/${payload}`);
@@ -80,7 +81,7 @@ export const __deleteTodos = createAsyncThunk(
 );
 
 const todosSlice = createSlice({
-  name: "todos",
+  name: 'todos',
   initialState,
 
   extraReducers: {
@@ -142,6 +143,7 @@ const todosSlice = createSlice({
             title: action.payload.title,
             content: action.payload.content,
             doneDate: action.payload.doneDate,
+            schedule: action.payload.schedule,
           };
         } else {
           return item;
