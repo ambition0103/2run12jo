@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import CommentView from './CommentView';
+import CommentViews from './CommentViews';
 import CommentWrite from './CommentWrite';
 import { useLocation } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ function Comment() {
   return (
     <StyleCommentWrap>
       <CommentWrite commentId={commentId} />
-      <CommentView commentId={commentId} />
+      <CommentViews commentId={commentId} />
     </StyleCommentWrap>
   );
 }
